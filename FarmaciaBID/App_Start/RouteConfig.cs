@@ -18,6 +18,12 @@ namespace FarmaciaBID
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Dosages",
+                url: "{Dosages}/{action}/{id}",
+                defaults: new { controller = "Dosages", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

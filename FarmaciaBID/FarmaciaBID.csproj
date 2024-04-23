@@ -151,13 +151,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiConfig\apiconfig.cs" />
+    <Compile Include="ApiServices\DosageService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DosagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dosage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2279,8 +2283,6 @@
     <Content Include="Content\bootstrap-datepicker3.css.map" />
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
-    <Content Include="Scripts\dataTables.js" />
-    <Content Include="Scripts\dataTables.min.js" />
     <Content Include="bootstrap-icons-1.11.3\font\bootstrap-icons.json" />
     <Content Include="bootstrap-icons-1.11.3\font\bootstrap-icons.scss" />
     <Content Include="bootstrap-icons-1.11.3\font\fonts\bootstrap-icons.woff" />
@@ -2291,6 +2293,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\dataTables.js" />
+    <Content Include="Scripts\dataTables.min.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
@@ -2399,10 +2403,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Dosages\ViewDosage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
