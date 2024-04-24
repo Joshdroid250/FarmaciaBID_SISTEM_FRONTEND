@@ -33,9 +33,13 @@ namespace FarmaciaBID.ApiServices
                     List<Dosage> dosages = JsonConvert.DeserializeObject<List<Dosage>>(json);
                     return dosages;
                 }
+                else
+                {
+                    // Manejar el caso en que la solicitud no sea exitosa
+                    throw new Exception($"Error al obtener la lista de Dosificacion: {response.StatusCode}");
+                }
 
-                // Manejar el caso en que la solicitud no sea exitosa
-                throw new Exception($"Error al obtener la lista de Dosificacion: {response.StatusCode}");
+                
             }
         }
     }

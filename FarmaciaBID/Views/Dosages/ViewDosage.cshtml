@@ -11,109 +11,116 @@
 <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
 
-<h2>Dosificacion</h2>
+<hr />
 
-<div class="table-responsive">
+<div class="data-table-area">
     <div class="container">
         <div class="row">
-            
-            <div class="col-sm">
-                <table id="tableDosage" class="table table-striped" style="width:100%">
-                    <thead class="tableOption">
-                        <a href="#" id=""><button class="btn btn-primary"><i class="bi-plus-circle" aria-hidden="true"></i>Nueva Dosificacion</button></a>
-                        <h1></h1>
-                        <tr>
-                            <th scope="col" style="width:15%">ID</th>
-                            <th scope="col">Nombre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var Dosages in Model)
-                        {
-                            <tr>
-                                <td>@Dosages.idDosificacion</td>
-                                <td>@Dosages.nombre</td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="basic-tb-hd">
+                        <h2>Dosificaciones</h2>
+                        <p>Dosificaciones de medicamentos de Farmacia BID</p>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tableDosage" class="table table-striped" style="width:100%">
+                            <thead class="tableOption">
+                                <a href="#" id=""><button class="btn btn-primary"><i class="bi-plus-circle" aria-hidden="true"></i>Nueva Dosificacion</button></a>
+                                <h1></h1>
+                                <tr>
+                                    <th scope="col" style="width:15%">ID</th>
+                                    <th scope="col">Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var Dosages in Model)
+                                {
+                                    <tr>
+                                        <td>@Dosages.idDosificacion</td>
+                                        <td>@Dosages.nombre</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-@section scripts {
-    <script src="~/DataTables/jQuery-3.7.0/jquery-3.7.0.js"></script>
-    <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <script src="~/DataTables/Buttons-2.4.2/js/dataTables.buttons.js"></script>
-    <script src="~/DataTables/JSZip-3.10.1/jszip.js"></script>
-    <script src="~/DataTables/pdfmake-0.2.7/pdfmake.min.js"></script>
-    <script src="~/DataTables/pdfmake-0.2.7/vfs_fonts.js"></script>
-    <script src="~/DataTables/Buttons-2.4.2/js/buttons.html5.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    @section scripts {
+        <script src="~/DataTables/jQuery-3.7.0/jquery-3.7.0.js"></script>
+        <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+        <script src="~/DataTables/Buttons-2.4.2/js/dataTables.buttons.js"></script>
+        <script src="~/DataTables/JSZip-3.10.1/jszip.js"></script>
+        <script src="~/DataTables/pdfmake-0.2.7/pdfmake.min.js"></script>
+        <script src="~/DataTables/pdfmake-0.2.7/vfs_fonts.js"></script>
+        <script src="~/DataTables/Buttons-2.4.2/js/buttons.html5.js"></script>
+        <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            var table = $('#tableDosage').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy',
-                    'excel',
-                    'csv',
-                    'pdf'
-                ],
-                order: [[0, 'desc']],
-                "language": {
-                    "lengthMenu": "Cantidad de filas _MENU_ por página",
-                    "emptyTable": "No hay información",
-                    "zeroRecords": "Nothing found - sorry",
-                    "info": "Mostrando pagina _PAGE_ de _PAGES_",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "search": "Buscar:",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "infoFiltered": "(Filtro de _MAX_ total records)",
-                    "paginate": {
-                        "first": "Primera",
-                        "last": "Última",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                }
-            });
-
-            // Agregar filtros individuales
-            $('#tableDosage thead th:not(:last-child)').each(function () {
-                var title = $(this).text();
-                $(this).html('<input type="text" placeholder="' + title + '" />');
-            });
-
-            // Aplicar los filtros al cambiar el valor en el cuadro de texto
-            table.columns(':not(:last-child)').every(function () {
-                var that = this;
-
-                $('input', this.header()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
+        <script>
+            $(document).ready(function () {
+                var table = $('#tableDosage').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy',
+                        'excel',
+                        'csv',
+                        'pdf'
+                    ],
+                    order: [[0, 'desc']],
+                    "language": {
+                        "lengthMenu": "Cantidad de filas _MENU_ por página",
+                        "emptyTable": "No hay información",
+                        "zeroRecords": "Nothing found - sorry",
+                        "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                        "search": "Buscar:",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "infoFiltered": "(Filtro de _MAX_ total records)",
+                        "paginate": {
+                            "first": "Primera",
+                            "last": "Última",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
                     }
                 });
-            });
-        });
-    </script>
 
-    <script>
-        function confirmDelete(deleteUrl) {
-            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
-                window.location.href = deleteUrl; // Redirige a la acción de eliminación
+                // Agregar filtros individuales
+                $('#tableDosage thead th:not(:last-child)').each(function () {
+                    var title = $(this).text();
+                    $(this).html('<input type="text" placeholder="' + title + '" />');
+                });
+
+                // Aplicar los filtros al cambiar el valor en el cuadro de texto
+                table.columns(':not(:last-child)').every(function () {
+                    var that = this;
+
+                    $('input', this.header()).on('keyup change', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            function confirmDelete(deleteUrl) {
+                if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+                    window.location.href = deleteUrl; // Redirige a la acción de eliminación
+                }
             }
-        }
-    </script>
-}
+        </script>
+    }
 
