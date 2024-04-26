@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\dev\\asp-net-core\\FarmaciaBID_SISTEM_FRONTEND\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0E7DDDAE-2F02-413B-9DDB-56D5A2A788AF}|FarmaciaBID\\FarmaciaBID.csproj|c:\\dev\\asp-net-core\\farmaciabid_sistem_frontend\\farmaciabid\\apiconfig\\apiconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E7DDDAE-2F02-413B-9DDB-56D5A2A788AF}|FarmaciaBID\\FarmaciaBID.csproj|solutionrelative:farmaciabid\\apiconfig\\apiconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E7DDDAE-2F02-413B-9DDB-56D5A2A788AF}|FarmaciaBID\\FarmaciaBID.csproj|c:\\dev\\asp-net-core\\farmaciabid_sistem_frontend\\farmaciabid\\views\\dosages\\updatedosage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0E7DDDAE-2F02-413B-9DDB-56D5A2A788AF}|FarmaciaBID\\FarmaciaBID.csproj|solutionrelative:farmaciabid\\views\\dosages\\updatedosage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UpdateDosage.cshtml",
+              "DocumentMoniker": "C:\\dev\\asp-net-core\\FarmaciaBID_SISTEM_FRONTEND\\FarmaciaBID\\Views\\Dosages\\UpdateDosage.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaBID\\Views\\Dosages\\UpdateDosage.cshtml",
+              "ToolTip": "C:\\dev\\asp-net-core\\FarmaciaBID_SISTEM_FRONTEND\\FarmaciaBID\\Views\\Dosages\\UpdateDosage.cshtml",
+              "RelativeToolTip": "FarmaciaBID\\Views\\Dosages\\UpdateDosage.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-26T03:32:44.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "apiconfig.cs",
+              "DocumentMoniker": "C:\\dev\\asp-net-core\\FarmaciaBID_SISTEM_FRONTEND\\FarmaciaBID\\ApiConfig\\apiconfig.cs",
+              "RelativeDocumentMoniker": "FarmaciaBID\\ApiConfig\\apiconfig.cs",
+              "ToolTip": "C:\\dev\\asp-net-core\\FarmaciaBID_SISTEM_FRONTEND\\FarmaciaBID\\ApiConfig\\apiconfig.cs",
+              "RelativeToolTip": "FarmaciaBID\\ApiConfig\\apiconfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T03:28:50.581Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
