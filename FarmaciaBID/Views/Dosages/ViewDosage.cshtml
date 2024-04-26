@@ -23,15 +23,16 @@
                         <p>Dosificaciones de medicamentos de Farmacia BID</p>
                     </div>
                     <div class="table-responsive">
+                        
                         <table id="tableDosage" class="table table-striped" style="width:100%">
                             <thead class="tableOption">
-                                
+
                                 <h1></h1>
                                 <tr>
                                     <th scope="col" style="width:15%">ID</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">
-                                        Agregar  <a href="/Dosages/CreateDosages"><i class="bi-plus-square-fill" style="color: gold; font-size: 20px;"></i></a>
+                                        Agregar  <a type="button" id="botonAbrirModal"><i class="bi-plus-square-fill" style="color: gold; font-size: 20px;"></i></a>
                                     </th>
                                 </tr>
                             </thead>
@@ -66,74 +67,109 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Dosificación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Contenido del formulario -->
+                            @Html.Partial("CreateDosages", new FarmaciaBID.Models.Dosage())
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <hr />
 
 
-    @section scripts {
-        <script src="~/DataTables/jQuery-3.7.0/jquery-3.7.0.js"></script>
-        <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-        <script src="~/DataTables/Buttons-2.4.2/js/dataTables.buttons.js"></script>
-        <script src="~/DataTables/JSZip-3.10.1/jszip.js"></script>
-        <script src="~/DataTables/pdfmake-0.2.7/pdfmake.min.js"></script>
-        <script src="~/DataTables/pdfmake-0.2.7/vfs_fonts.js"></script>
-        <script src="~/DataTables/Buttons-2.4.2/js/buttons.html5.js"></script>
-        <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+@section scripts {
+    <script src="~/DataTables/jQuery-3.7.0/jquery-3.7.0.js"></script>
+    <script src="~/DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="~/DataTables/Buttons-2.4.2/js/dataTables.buttons.js"></script>
+    <script src="~/DataTables/JSZip-3.10.1/jszip.js"></script>
+    <script src="~/DataTables/pdfmake-0.2.7/pdfmake.min.js"></script>
+    <script src="~/DataTables/pdfmake-0.2.7/vfs_fonts.js"></script>
+    <script src="~/DataTables/Buttons-2.4.2/js/buttons.html5.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                var table = $('#tableDosage').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy',
-                        'excel',
-                        'csv',
-                        'pdf'
-                    ],
-                    order: [[0, 'desc']],
-                    "language": {
-                        "lengthMenu": "Cantidad de filas _MENU_ por página",
-                        "emptyTable": "No hay información",
-                        "zeroRecords": "Nothing found - sorry",
-                        "info": "Mostrando pagina _PAGE_ de _PAGES_",
-                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                        "search": "Buscar:",
-                        "loadingRecords": "Cargando...",
-                        "processing": "Procesando...",
-                        "infoFiltered": "(Filtro de _MAX_ total records)",
-                        "paginate": {
-                            "first": "Primera",
-                            "last": "Última",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
-                        }
+    <script>
+        $(document).ready(function () {
+            var table = $('#tableDosage').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',
+                    'excel',
+                    'csv',
+                    'pdf'
+                ],
+                order: [[0, 'desc']],
+                "language": {
+                    "lengthMenu": "Cantidad de filas _MENU_ por página",
+                    "emptyTable": "No hay información",
+                    "zeroRecords": "Nothing found - sorry",
+                    "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "search": "Buscar:",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "infoFiltered": "(Filtro de _MAX_ total records)",
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            // Agregar filtros individuales
+            $('#tableDosage thead th:not(:last-child)').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="' + title + '" />');
+            });
+
+            // Aplicar los filtros al cambiar el valor en el cuadro de texto
+            table.columns(':not(:last-child)').every(function () {
+                var that = this;
+
+                $('input', this.header()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
                     }
                 });
+            });
+        });
+    </script>
 
-                // Agregar filtros individuales
-                $('#tableDosage thead th:not(:last-child)').each(function () {
-                    var title = $(this).text();
-                    $(this).html('<input type="text" placeholder="' + title + '" />');
-                });
-
-                // Aplicar los filtros al cambiar el valor en el cuadro de texto
-                table.columns(':not(:last-child)').every(function () {
-                    var that = this;
-
-                    $('input', this.header()).on('keyup change', function () {
-                        if (that.search() !== this.value) {
-                            that.search(this.value).draw();
-                        }
-                    });
+    <script>
+        $(document).ready(function () {
+            // Manejador de evento click para el botón
+            $('#botonAbrirModal').on('click', function () {
+                var url = '@Url.Action("CreateDosages", "Dosages")';
+                $.get(url, function (data) {
+                    $('.modal-content').html(data);
+                    $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
                 });
             });
-        </script>
+        });
+    </script>
 
-        <script>
-            function confirmDelete(deleteUrl) {
-                if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
-                    window.location.href = deleteUrl; // Redirige a la acción de eliminación
-                }
-            }
-        </script>
-    }
+
+}
 
