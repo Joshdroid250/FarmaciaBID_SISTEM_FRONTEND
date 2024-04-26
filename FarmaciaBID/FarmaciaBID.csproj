@@ -2404,6 +2404,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Dosages\ViewDosage.cshtml" />
+    <Content Include="Views\Dosages\CreateDosages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

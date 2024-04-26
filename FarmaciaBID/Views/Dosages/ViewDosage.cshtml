@@ -25,11 +25,14 @@
                     <div class="table-responsive">
                         <table id="tableDosage" class="table table-striped" style="width:100%">
                             <thead class="tableOption">
-                                <a href="#" id=""><button class="btn btn-primary"><i class="bi-plus-circle" aria-hidden="true"></i>Nueva Dosificacion</button></a>
+                                
                                 <h1></h1>
                                 <tr>
                                     <th scope="col" style="width:15%">ID</th>
                                     <th scope="col">Nombre</th>
+                                    <th scope="col">
+                                        Agregar  <a href="/Dosages/CreateDosages"><i class="bi-plus-square-fill" style="color: gold; font-size: 20px;"></i></a>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,6 +41,11 @@
                                     <tr>
                                         <td>@Dosages.idDosificacion</td>
                                         <td>@Dosages.nombre</td>
+                                        <td>
+                                            <a href="@Url.Action("UpdateDosage", new { id = Dosages.idDosificacion })">
+                                                <i class="bi-pencil-square" style="color: green; font-size: 20px;"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -45,6 +53,7 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Nombre</th>
+                                    <th scope="col">Opciones</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -54,6 +63,8 @@
         </div>
     </div>
 </div>
+
+<hr />
 
 
     @section scripts {
