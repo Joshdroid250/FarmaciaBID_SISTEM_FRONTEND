@@ -77,5 +77,72 @@ namespace FarmaciaBID.ApiServices
                 }
             }
         }
+
+        public async Task<Dosage> GetDosageById(int idDosage)
+        {
+            using (var client = new HttpClient())
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync($"/api/Dosificaciones/{idDosage}");
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Dosage getByIdDosage = JsonConvert.DeserializeObject<Dosage>(json);
+                    return getByIdDosage;
+                }
+                else if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    // Manejar el caso de duplicado
+                    throw new Exception("");
+                }
+                else
+                {
+                    // Manejar otros casos de error
+                    throw new Exception($"Error al obtener la dosificacion con ID {idDosage}: {response.StatusCode}");
+                }
+
+                
+            }
+        }
+
+        public async Task UpdateDosage(Dosage newDosage, int idDosage)
+        {
+            using (var client = new HttpClient())
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                string json = JsonConvert.SerializeObject(newDosage);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Realizar la solicitud POST
+                HttpResponseMessage response = await client.PutAsync($"/api/Dosificaciones/{idDosage}", content);
+
+                // Verificar si la respuesta indica éxito basado en el código de estado
+                if (response.IsSuccessStatusCode)
+                {
+                    // Respuesta exitosa
+                    return;
+                }
+                else if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    // Manejar el caso de duplicado
+                    throw new Exception("Error al crear el dosificacion. Ya existe un registro con los mismos datos.");
+                }
+                else
+                {
+                    // Manejar otros casos de error
+                    throw new Exception($"Error al actualizar dosificacion. Código de estado: {response.StatusCode}");
+                }
+            }
+        }
     }
 }

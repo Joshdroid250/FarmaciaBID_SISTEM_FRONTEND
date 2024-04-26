@@ -53,6 +53,49 @@ namespace FarmaciaBID.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<ActionResult> UpdateDosage(int id)
+        {
+            try
+            {
+                var dosage = await dosageService.GetDosageById(id);
+                return View("UpdateDosage", dosage);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Error al obtener el usuario: {ex.Message}");
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateDosage(Dosage updateDosage,  int id)
+        {
+            try
+            {
+                await dosageService.UpdateDosage(updateDosage, id);
+                // Después de la actualización exitosa, redirigir a la vista ViewUser
+                return RedirectToAction("ViewDosage");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ya EXISTE"))
+                {
+                    ModelState.AddModelError("", $"Error al crear el proveedor: {ex.Message}");
+                    // Puedes agregar el mensaje de error específico a la vista si lo necesitas
+                    ViewBag.DuplicateErrorMessage = ex.Message;
+
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"Error al crear el proveedor: {ex.Message}");
+                    return View();
+                }
+            }
+        }
+
+
 
     }
 }
