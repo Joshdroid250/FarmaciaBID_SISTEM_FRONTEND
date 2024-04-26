@@ -144,5 +144,31 @@ namespace FarmaciaBID.ApiServices
                 }
             }
         }
+
+        public async Task DeleteDosage(int idDosage)
+        {
+            using (var client = new HttpClient())
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Realizar la solicitud DELETE
+                HttpResponseMessage response = await client.DeleteAsync($"/api/Dosificaciones/{idDosage}");
+
+                // Verificar si la respuesta indica éxito basado en el código de estado
+                if (response.IsSuccessStatusCode)
+                {
+                    // Respuesta exitosa
+                    return;
+                }
+                else
+                {
+                    // Manejar casos de error
+                    throw new Exception($"Error al eliminar dosificación. Código de estado: {response.StatusCode}");
+                }
+            }
+        }
     }
 }

@@ -97,5 +97,28 @@ namespace FarmaciaBID.Controllers
 
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteDosages(int id)
+        {
+            try
+            {
+                // Lógica para eliminar la dosificación utilizando el servicio
+                await dosageService.DeleteDosage(id);
+
+                // Redireccionar a una vista de éxito o a la lista de dosificaciones
+                return RedirectToAction("Index"); // Cambia "Index" por la acción que desees redirigir después de la eliminación
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que pueda ocurrir al llamar al servicio
+                ModelState.AddModelError("", "Error al intentar eliminar la dosificación. Por favor, inténtelo de nuevo más tarde.");
+                return RedirectToAction("Error"); // Cambia "Error" por la acción que maneje los errores
+            }
+        }
+
+
+
+
     }
 }

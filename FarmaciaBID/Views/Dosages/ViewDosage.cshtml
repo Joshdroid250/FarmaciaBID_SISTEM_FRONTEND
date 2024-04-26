@@ -23,7 +23,7 @@
                         <p>Dosificaciones de medicamentos de Farmacia BID</p>
                     </div>
                     <div class="table-responsive">
-                        
+
                         <table id="tableDosage" class="table table-striped" style="width:100%">
                             <thead class="tableOption">
 
@@ -47,7 +47,12 @@
                                                 <i class="bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                             </a>
 
-                                            <a href="@Url.Action("", new { id = Dosages.idDosificacion })"><i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i></a>
+                                            <form id="deleteForm" action="@Url.Action("DeleteDosages")" method="post">
+                                                <input type="hidden" name="id" id="dosageId" value="@Dosages.idDosificacion" />
+                                                <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar esta dosificación?');">
+                                                    <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 }
@@ -168,6 +173,15 @@
                 });
             });
         });
+    </script>
+
+
+    <script>
+        function confirmDelete(deleteUrl) {
+            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+                window.location.href = deleteUrl; // Redirige a la acción de eliminación
+            }
+        }
     </script>
 
 
