@@ -6,12 +6,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using FarmaciaBID.Models;
+using FarmaciaBID.ApiServices.ApiConfig;
+using System.Net.Http;
 
 namespace FarmaciaBID.Controllers
 {
     public class DosagesController : Controller
     {
         private readonly DosageService dosageService = new DosageService();
+        private readonly string apiUrl = ApiConfig.Instance.BaseUrl;
         public async Task<ActionResult> ViewDosage()
         {
             
@@ -97,23 +100,32 @@ namespace FarmaciaBID.Controllers
 
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteDosages(int id)
+        public ActionResult DeleteDosage(int id)
         {
             try
             {
-                // Lógica para eliminar la dosificación utilizando el servicio
-                await dosageService.DeleteDosage(id);
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(apiUrl);
 
-                // Redireccionar a una vista de éxito o a la lista de dosificaciones
-                return RedirectToAction("Index"); // Cambia "Index" por la acción que desees redirigir después de la eliminación
+                    // HTTP DELETE sin cuerpo del mensaje
+                    var deleteTask = client.DeleteAsync($"/api/Dosificaciones/{id}");
+
+                    deleteTask.Wait();
+
+                    var result = deleteTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("ViewDosage"); // OK sin contenido
+                    }
+                }
+
+                return new HttpStatusCodeResult(500); // Error interno del servidor
             }
             catch (Exception ex)
             {
-                // Manejar cualquier excepción que pueda ocurrir al llamar al servicio
-                ModelState.AddModelError("", "Error al intentar eliminar la dosificación. Por favor, inténtelo de nuevo más tarde.");
-                return RedirectToAction("Error"); // Cambia "Error" por la acción que maneje los errores
+                // Manejar otras excepciones según sea necesario
+                return new HttpStatusCodeResult(500); // Error interno del servidor
             }
         }
 
