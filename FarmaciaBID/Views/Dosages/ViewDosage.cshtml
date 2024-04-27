@@ -43,7 +43,7 @@
                                         <td>@Dosages.idDosificacion</td>
                                         <td>@Dosages.nombre</td>
                                         <td>
-                                            <a href="@Url.Action("UpdateDosage", new { id = Dosages.idDosificacion })">
+                                            <a href="#" class="updateDosageBtn" data-dosage-id="@Dosages.idDosificacion">
                                                 <i class="bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                             </a>
 
@@ -85,6 +85,33 @@
                         <div class="col-md-12">
                             <!-- Contenido del formulario -->
                             @Html.Partial("CreateDosages", new FarmaciaBID.Models.Dosage())
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Dosificación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Contenido del formulario -->
+                            @Html.Partial("UpdateDosage", new FarmaciaBID.Models.Dosage())
                         </div>
                     </div>
                 </div>
@@ -172,6 +199,19 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function () {
+            // Manejador de evento click para el botón
+            $('#botonAbrirModalUpdate').on('click', function () {
+                var url = '@Url.Action("UpdateDosage", "Dosages")';
+                $.get(url, function (data) {
+                    $('.modal-content').html(data);
+                    $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
+                });
+            });
+        });
+    </script>
+
 
     <script>
     function confirmDelete(idDosage) {
@@ -191,6 +231,21 @@
             });
         }
     }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+    // Manejador de evento click para el botón de actualizar en la tabla
+    $('.updateDosageBtn').on('click', function () {
+        var dosageId = $(this).data('dosage-id'); // Obtener el ID de la dosificación del atributo de datos
+        var url = '@Url.Action("UpdateDosage", "Dosages")' + '?id=' + dosageId; // Construir la URL con el ID de la dosificación
+        $.get(url, function (data) {
+            $('.modal-content').html(data);
+            $('#UpdateModal').modal('show'); // Mostrar el modal de actualización
+        });
+    });
+});
     </script>
 
 
