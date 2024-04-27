@@ -47,12 +47,9 @@
                                                 <i class="bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                             </a>
 
-                                            <form id="deleteForm" action="@Url.Action("DeleteDosages")" method="post">
-                                                <input type="hidden" name="id" id="dosageId" value="@Dosages.idDosificacion" />
-                                                <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar esta dosificación?');">
-                                                    <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
-                                                </button>
-                                            </form>
+                                            <a href="#" onclick="confirmDelete('@Dosages.idDosificacion')">
+                                                <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -177,11 +174,23 @@
 
 
     <script>
-        function confirmDelete(deleteUrl) {
-            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
-                window.location.href = deleteUrl; // Redirige a la acción de eliminación
-            }
+    function confirmDelete(idDosage) {
+        if (confirm("¿Estás seguro de que quieres eliminar esta dosificación?")) {
+            $.ajax({
+                url: '@Url.Action("DeleteDosages", "TuControlador")', // Reemplaza "TuControlador" con el nombre de tu controlador
+                type: 'POST',
+                data: { id: idDosage },
+                success: function () {
+                    alert("Dosificación eliminada con éxito.");
+                    // Redireccionar a una vista de éxito o a la lista de dosificaciones si es necesario
+                    window.location.href = '@Url.Action("ViewDosage", "Dosages")'; // Reemplaza "TuControlador" con el nombre de tu controlador
+                },
+                error: function () {
+                    alert("Error al eliminar dosificación. Por favor, inténtelo de nuevo más tarde.");
+                }
+            });
         }
+    }
     </script>
 
 
