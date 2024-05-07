@@ -52,5 +52,22 @@ namespace FarmaciaBID.Controllers
                 return RedirectToAction("Error");
             }
         }
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> UpdatePatients(int id)
+        {
+            try
+            {
+                var paciente = await patientsService.GetPatientsById(id);
+                return View("UpdatePatients", paciente);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Error al obtener el Paciente: {ex.Message}");
+                return View("Error");
+            }
+        }
     }
 }

@@ -132,7 +132,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Contenido del formulario -->
-
+                            @Html.Partial("UpdatePatients", new FarmaciaBID.Models.Patients())
                         </div>
                     </div>
                 </div>
@@ -236,10 +236,10 @@
         $(document).ready(function () {
             // Manejador de evento click para el botón
             $('#botonAbrirModalUpdate').on('click', function () {
-                var url = '@Url.Action("UpdateDosage", "Dosages")';
+                var url = '@Url.Action("UpdatePatients", "Patients")';
                 $.get(url, function (data) {
                     $('.modal-content').html(data);
-                    $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
+                    $('#UpdateModal').modal('show'); // Mostrar el modal después de cargar el contenido
                 });
             });
         });
@@ -250,8 +250,8 @@
         $(document).ready(function () {
     // Manejador de evento click para el botón de actualizar en la tabla
     $('.updateDosageBtn').on('click', function () {
-        var dosageId = $(this).data('dosage-id'); // Obtener el ID de la dosificación del atributo de datos
-        var url = '@Url.Action("UpdateDosage", "Dosages")' + '?id=' + dosageId; // Construir la URL con el ID de la dosificación
+        var pacienteId = $(this).data('paciente-id'); // Obtener el ID de la dosificación del atributo de datos
+        var url = '@Url.Action("UpdatePatients", "Patients")' + '?id=' + pacienteId; // Construir la URL con el ID de la dosificación
         $.get(url, function (data) {
             $('.modal-content').html(data);
             $('#UpdateModal').modal('show'); // Mostrar el modal de actualización

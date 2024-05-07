@@ -76,5 +76,39 @@ namespace FarmaciaBID.ApiServices
                 }
             }
         }
+
+
+        public async Task<Patients> GetPatientsById(int idPaciente)
+        {
+            using (var client = new HttpClient())
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                client.BaseAddress = new Uri(apiUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync($"/api/Pacientes/{idPaciente}");
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Patients getByIdPatients = JsonConvert.DeserializeObject<Patients>(json);
+                    return getByIdPatients;
+                }
+                else if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    // Manejar el caso de duplicado
+                    throw new Exception("");
+                }
+                else
+                {
+                    // Manejar otros casos de error
+                    throw new Exception($"Error al obtener el paciente con ID {idPaciente}: {response.StatusCode}");
+                }
+
+
+            }
+        }
     }
 }
