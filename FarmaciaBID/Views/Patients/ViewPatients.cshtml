@@ -60,7 +60,7 @@
                                             }
                                         </td>
                                         <td>
-                                            <a href="#" class="updateDosageBtn" data-dosage-id="@patients.idPaciente">
+                                            <a href="#" class="updatePatientsBtn" data-dosage-id="@patients.idPaciente">
                                                 <i class="bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                             </a>
 
@@ -238,24 +238,13 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function () {
-            // Manejador de evento click para el botón
-            $('#botonAbrirModalUpdate').on('click', function () {
-                var url = '@Url.Action("UpdatePatients", "Patients")';
-                $.get(url, function (data) {
-                    $('.modal-content').html(data);
-                    $('#UpdateModal').modal('show'); // Mostrar el modal después de cargar el contenido
-                });
-            });
-        });
-    </script>
+    
 
 
     <script>
         $(document).ready(function () {
     // Manejador de evento click para el botón de actualizar en la tabla
-    $('.updateDosageBtn').on('click', function () {
+            $('.updatePatientsBtn').on('click', function () {
         var pacienteId = $(this).data('paciente-id'); // Obtener el ID de la dosificación del atributo de datos
         var url = '@Url.Action("UpdatePatients", "Patients")' + '?id=' + pacienteId; // Construir la URL con el ID de la dosificación
         $.get(url, function (data) {

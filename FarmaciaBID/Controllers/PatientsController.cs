@@ -54,7 +54,6 @@ namespace FarmaciaBID.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<ActionResult> UpdatePatients(int id)
         {
