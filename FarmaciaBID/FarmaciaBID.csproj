@@ -2248,6 +2248,7 @@
     <Content Include="Content\cssSpecial\hover.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\pharmacy-logo-by-Vexels.svg" />
     <Content Include="Content\sidebar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
