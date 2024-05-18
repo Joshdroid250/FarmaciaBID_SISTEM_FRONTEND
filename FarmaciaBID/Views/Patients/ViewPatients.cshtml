@@ -64,7 +64,7 @@
                                                 <i class="bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                             </a>
 
-                                            <a href="#" onclick="confirmDelete('@Url.Action("DeleteDosage", new { id = patients.idPaciente })')">
+                                            <a href="#" onclick="confirmDelete('@Url.Action("DeletePatient", new { id = patients.idPaciente })')">
                                                 <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
                                             </a>
                                         </td>
@@ -237,16 +237,12 @@
             });
         });
     </script>
-
-    
-
-
     <script>
         $(document).ready(function () {
     // Manejador de evento click para el botón de actualizar en la tabla
             $('.updatePatientsBtn').on('click', function () {
-        var pacienteId = $(this).data('paciente-id'); // Obtener el ID de la dosificación del atributo de datos
-        var url = '@Url.Action("UpdatePatients", "Patients")' + '?id=' + pacienteId; // Construir la URL con el ID de la dosificación
+        var PatientsId = $(this).data('dosage-id'); // Obtener el ID de la dosificación del atributo de datos
+                var url = '@Url.Action("UpdatePatients", "Patients")' + '?id=' + PatientsId; // Construir la URL con el ID de la dosificación
         $.get(url, function (data) {
             $('.modal-content').html(data);
             $('#UpdateModal').modal('show'); // Mostrar el modal de actualización
@@ -258,7 +254,7 @@
 
     <script>
         function confirmDelete(deleteUrl) {
-            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+            if (confirm("¿Estás seguro de que deseas eliminar este paciente?")) {
                 window.location.href = deleteUrl; // Redirige a la acción de eliminación
             }
         }

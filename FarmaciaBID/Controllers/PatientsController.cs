@@ -13,6 +13,7 @@ namespace FarmaciaBID.Controllers
     public class PatientsController : Controller
     {
         private readonly PatientsService patientsService = new PatientsService();
+        private readonly string apiUrl = ApiConfig.Instance.BaseUrl;
         public async Task<ActionResult> ViewPatients()
         {
 
@@ -66,6 +67,63 @@ namespace FarmaciaBID.Controllers
             {
                 ModelState.AddModelError("", $"Error al obtener el Paciente: {ex.Message}");
                 return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdatePatients(Patients updatePatient, int id)
+        {
+            try
+            {
+                await patientsService.UpdatePatients(updatePatient, id);
+                // Después de la actualización exitosa, redirigir a la vista ViewUser
+                return RedirectToAction("ViewPatients");
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ya EXISTE"))
+                {
+                    ModelState.AddModelError("", $"Error al actualizar el paciente: {ex.Message}");
+                    // Puedes agregar el mensaje de error específico a la vista si lo necesitas
+                    ViewBag.DuplicateErrorMessage = ex.Message;
+
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"Error al actualizar el paciente: {ex.Message}");
+                    return View();
+                }
+            }
+        }
+
+
+        public ActionResult DeletePatient(int id)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(apiUrl);
+
+                    // HTTP DELETE sin cuerpo del mensaje
+                    var deleteTask = client.DeleteAsync($"/api/Pacientes/{id}");
+
+                    deleteTask.Wait();
+
+                    var result = deleteTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("ViewPatients"); // OK sin contenido
+                    }
+                }
+
+                return new HttpStatusCodeResult(500); // Error interno del servidor
+            }
+            catch (Exception ex)
+            {
+                // Manejar otras excepciones según sea necesario
+                return new HttpStatusCodeResult(500); // Error interno del servidor
             }
         }
     }
