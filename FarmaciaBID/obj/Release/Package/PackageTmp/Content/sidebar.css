@@ -1,0 +1,27 @@
+﻿/* Estilos para el modo claro */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #ffffff; /* Cambia al color de fondo claro */
+        color: #212529; /* Cambia al color de texto oscuro */
+    }
+
+    #sidebar-header,
+    .list-unstyled a {
+        background-color: #f8f9fa; /* Cambia al color de fondo claro del sidebar */
+        color: #212529; /* Cambia al color de texto oscuro del sidebar */
+    }
+}
+
+/* Estilos para el modo oscuro */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #343a40; /* Cambia al color de fondo oscuro */
+        color: #ffffff; /* Cambia al color de texto claro */
+    }
+
+    #sidebar-header,
+    .list-unstyled a {
+        background-color: #343a40; /* Cambia al color de fondo oscuro del sidebar */
+        color: #ffffff; /* Cambia al color de texto claro del sidebar */
+    }
+}

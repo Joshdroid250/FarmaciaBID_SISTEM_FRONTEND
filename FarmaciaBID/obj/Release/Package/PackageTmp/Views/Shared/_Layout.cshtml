@@ -1,39 +1,119 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
-    @Styles.Render("~/Content/css")
+    <link href="~/Content/specialStyles/hover-nav.css" rel="stylesheet" />
+    <link href="~/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/DataTables/datatables.min.css" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/sidebar.css" rel="stylesheet" />
+    <link href="~/Content/cssSpecial/hover.css" rel="stylesheet" />
+    <title>@ViewBag.Title - FARMACIABID</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+
+<body class="min-vh-100">
+    <!-- header -->
+    <header class="py-3 mb-0 bg-light">
+        <div class="container-fluid d-flex justify-content-between align-items-center"> 
+            <a href="#" class="link-body-emphasis text-decoration-none">
+                <i class="fs-5 bi-hospital-fill me-3 align-items-center h-200"></i>
+            </a>
+            <a href="#" class="link-body-emphasis text-decoration-none">
+                <h5 class="h-100 d-inline-block">Farmacia BID</h5>
+            </a>
+            <form class="w-100 me-3" role="">
+            </form>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i  alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-person-circle"> </i>
+                </a>
+                <ul class="dropdown-menu text-small shadow">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
                 </ul>
             </div>
         </div>
+    </header>
+    <!-- header -->
+    <!-- sidebar -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: calc(100vh - 56px);">
+               
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="/Patients/ViewPatients" class="nav-link" aria-current="page">
+                            <i alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-person"> </i>
+                            Pacientes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Dosages/ViewDosage" class="nav-link">
+                            <i alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-capsule"> </i>
+                            Dosificacion
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Proceedings/ViewProceedings" class="nav-link ">
+                            <i alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-journal-text"> </i>
+                            Expediente
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">
+                            <i alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-box"> </i>
+                            Lote Farmaco
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Measures/ViewMeasures" class="nav-link">
+                            <i alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-rulers"> </i>
+                            Medidas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">
+                            <i alt="mdo" width="32" height="32" class="rounded-circle me-3 bi-easel"> </i>
+                            Presentaciones
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                @RenderBody()
+            </main>
+
+            <!-- sidebar -->
+        </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+
+        <!-- footer -->
+        <footer class="py-3 my-0 bg-light">
+            <div class="container">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                </ul>
+                <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+            </div>
         </footer>
-    </div>
+        <!-- footer -->
+
+
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 </body>
 </html>

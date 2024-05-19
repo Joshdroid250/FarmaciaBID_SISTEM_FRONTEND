@@ -1,0 +1,11 @@
+﻿.nav-pills li a:hover {
+    background-color: #82ab8d;
+    box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.34);
+    -webkit-box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.34);
+    -moz-box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.34);
+    color: white; /* Cambia el color del texto al hacer hover */
+}
+
+.nav-pills li a {
+    color: darkslategrey; /* Color de texto por defecto */
+}
