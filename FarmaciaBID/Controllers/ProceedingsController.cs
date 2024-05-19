@@ -77,12 +77,13 @@ namespace FarmaciaBID.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> UpdateMeasures(int id)
+        public async Task<ActionResult> UpdateProceedings(int id)
         {
             try
             {
-                var medida = await MeasuresService.GetMeasuresById(id);
-                return View("UpdateMeasures", medida);
+                var expediente = await ProceedingsS.GetProceedingsById(id);
+                ViewBag.Paciente = await ObtenerPaciente();
+                return View("UpdateProceedings", expediente);
             }
             catch (Exception ex)
             {
@@ -92,19 +93,19 @@ namespace FarmaciaBID.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateMeasures(Measures updateMeasures, int id)
+        public async Task<ActionResult> UpdateProceedings(Expediente updateExpediente, int id)
         {
             try
             {
-                await MeasuresService.UpdateMeasures(updateMeasures, id);
+                await ProceedingsS.UpdateProceedings(updateExpediente, id);
                 // Después de la actualización exitosa, redirigir a la vista ViewUser
-                return RedirectToAction("ViewMeasures");
+                return RedirectToAction("ViewProceedings");
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("ya EXISTE"))
                 {
-                    ModelState.AddModelError("", $"Error al actualizar el Measures: {ex.Message}");
+                    ModelState.AddModelError("", $"Error al actualizar el Expediente: {ex.Message}");
                     // Puedes agregar el mensaje de error específico a la vista si lo necesitas
                     ViewBag.DuplicateErrorMessage = ex.Message;
 
@@ -112,14 +113,14 @@ namespace FarmaciaBID.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", $"Error al actualizar el Measures: {ex.Message}");
+                    ModelState.AddModelError("", $"Error al actualizar el Expediente: {ex.Message}");
                     return View();
                 }
             }
         }
 
 
-        public ActionResult DeleteMeasures(int id)
+        public ActionResult DeleteProceedings(int id)
         {
             try
             {
@@ -128,14 +129,14 @@ namespace FarmaciaBID.Controllers
                     client.BaseAddress = new Uri(apiUrl);
 
                     // HTTP DELETE sin cuerpo del mensaje
-                    var deleteTask = client.DeleteAsync($"/api/Medidas/{id}");
+                    var deleteTask = client.DeleteAsync($"/api/Expedientes/{id}");
 
                     deleteTask.Wait();
 
                     var result = deleteTask.Result;
                     if (result.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("ViewMeasures"); // OK sin contenido
+                        return RedirectToAction("ViewProceedings"); // OK sin contenido
                     }
                 }
 

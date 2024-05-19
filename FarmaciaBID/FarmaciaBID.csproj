@@ -2427,6 +2427,7 @@
     <Content Include="Views\Measures\UpdateMeasures.cshtml" />
     <Content Include="Views\Proceedings\ViewProceedings.cshtml" />
     <Content Include="Views\Proceedings\CreateProceedings.cshtml" />
+    <Content Include="Views\Proceedings\UpdateProceedings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

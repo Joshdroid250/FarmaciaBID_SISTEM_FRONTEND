@@ -79,7 +79,7 @@ namespace FarmaciaBID.ApiServices
         }
 
 
-        public async Task<Measures> GetMeasuresById(int idMeasures)
+        public async Task<Expediente> GetProceedingsById(int idProceedings)
         {
             using (var client = new HttpClient())
             {
@@ -88,14 +88,14 @@ namespace FarmaciaBID.ApiServices
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = await client.GetAsync($"/api/Medidas/{idMeasures}");
+                HttpResponseMessage response = await client.GetAsync($"/api/Expedientes/{idProceedings}");
 
 
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
-                    Measures getByIdMeasures = JsonConvert.DeserializeObject<Measures>(json);
-                    return getByIdMeasures;
+                    Expediente getByIdProceedings = JsonConvert.DeserializeObject<Expediente>(json);
+                    return getByIdProceedings;
                 }
                 else if (response.StatusCode == HttpStatusCode.Conflict)
                 {
@@ -105,7 +105,7 @@ namespace FarmaciaBID.ApiServices
                 else
                 {
                     // Manejar otros casos de error
-                    throw new Exception($"Error al obtener la medida con ID {idMeasures}: {response.StatusCode}");
+                    throw new Exception($"Error al obtener la medida con ID {idProceedings}: {response.StatusCode}");
                 }
 
 
@@ -113,7 +113,7 @@ namespace FarmaciaBID.ApiServices
         }
 
 
-        public async Task UpdateMeasures(Measures editMeasures, int idMeasures)
+        public async Task UpdateProceedings(Expediente editProceedings, int idProceedings)
         {
             using (var client = new HttpClient())
             {
@@ -122,11 +122,11 @@ namespace FarmaciaBID.ApiServices
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                string json = JsonConvert.SerializeObject(editMeasures);
+                string json = JsonConvert.SerializeObject(editProceedings);
                 HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Realizar la solicitud POST
-                HttpResponseMessage response = await client.PutAsync($"/api/Medidas/{idMeasures}", content);
+                HttpResponseMessage response = await client.PutAsync($"/api/Expedientes/{idProceedings}", content);
 
                 // Verificar si la respuesta indica éxito basado en el código de estado
                 if (response.IsSuccessStatusCode)
