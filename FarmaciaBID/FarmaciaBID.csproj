@@ -2258,6 +2258,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\pharmacy-logo-by-Vexels.svg" />
     <Content Include="Content\sidebar.css" />
+    <Content Include="Content\cssSpecial\table desing.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
