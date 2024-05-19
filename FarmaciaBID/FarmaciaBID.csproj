@@ -153,17 +153,23 @@
   <ItemGroup>
     <Compile Include="ApiConfig\apiconfig.cs" />
     <Compile Include="ApiServices\DosageService.cs" />
+    <Compile Include="ApiServices\ExpedienteService.cs" />
+    <Compile Include="ApiServices\MeasuresServices.cs" />
     <Compile Include="ApiServices\PatientsService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DosagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Dosage.cs" />
+    <Compile Include="Models\Expediente.cs" />
+    <Compile Include="Models\ExpedienteView.cs" />
+    <Compile Include="Models\Measures.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2414,6 +2420,9 @@
     <Content Include="Views\Patients\ViewPatients.cshtml" />
     <Content Include="Views\Patients\CreatePatients.cshtml" />
     <Content Include="Views\Patients\UpdatePatients.cshtml" />
+    <Content Include="Views\Measures\ViewMeasures.cshtml" />
+    <Content Include="Views\Measures\CreateMeasures.cshtml" />
+    <Content Include="Views\Measures\UpdateMeasures.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

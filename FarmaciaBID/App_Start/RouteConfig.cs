@@ -30,6 +30,12 @@ namespace FarmaciaBID
                 url: "{Patients}/{action}/{id}",
                 defaults: new { controller = "Patients", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Measures",
+                url: "{Measures}/{action}/{id}",
+                defaults: new { controller = "Measures", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }
