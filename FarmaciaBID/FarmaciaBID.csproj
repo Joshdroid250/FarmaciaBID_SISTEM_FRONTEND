@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiConfig\apiconfig.cs" />
+    <Compile Include="ApiServices\BaseService.cs" />
     <Compile Include="ApiServices\DosageService.cs" />
     <Compile Include="ApiServices\ExpedienteService.cs" />
     <Compile Include="ApiServices\MeasuresServices.cs" />
@@ -2432,6 +2433,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\LotPharma\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
