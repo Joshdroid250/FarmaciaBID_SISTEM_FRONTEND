@@ -13,14 +13,16 @@ namespace FarmaciaBID.Controllers
 {
     public class DosagesController : Controller
     {
-        private readonly DosageService dosageService = new DosageService();
-        private readonly string apiUrl = ApiConfig.Instance.BaseUrl;
+        private readonly DosageService _dosageService;
+        public DosagesController()
+        {
+            _dosageService = new DosageService();
+        }
+
         public async Task<ActionResult> ViewDosage()
         {
-            
-            var employe = await dosageService.GetAllDosage();
-
-            return View(employe);
+            var dosages = await _dosageService.GetAllDosagesAsync();
+            return View(dosages);
         }
 
 
@@ -40,18 +42,20 @@ namespace FarmaciaBID.Controllers
                 if (ModelState.IsValid)
                 {
                     // Lógica para guardar la nueva dosificación en la base de datos utilizando el servicio
-                    await dosageService.CreateDosage(NewDosage);
+                    await _dosageService.CreateDosageAsync(NewDosage); // Aquí llamas al método CreateDosageAsync
 
                     // Redireccionar a una vista de éxito o a la lista de dosificaciones
                     return RedirectToAction("ViewDosage");
                 }
+
+                // Si el modelo no es válido, se regresa la vista con el modelo actual
                 return View(NewDosage);
             }
             catch (Exception ex)
             {
                 // Manejar cualquier excepción que pueda ocurrir al llamar al servicio
                 ModelState.AddModelError("", "Error al intentar guardar la dosificación. Por favor, inténtelo de nuevo más tarde.");
-                return RedirectToAction("Error");
+                return View("Error");
             }
         }
 

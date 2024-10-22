@@ -1,7 +1,7 @@
 ﻿@model FarmaciaBID.Models.Dosage
 
 @{
-    ViewBag.Title = "Agregar dosificacion";
+    ViewBag.Title = "Agregar dosificación";
     Layout = null;
 }
 
@@ -9,29 +9,52 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal m-4">
-    <h4>Nueva dosificacion</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="row gx-3 mb-3">
-        <div class="col-md-6">
-            <div class="input-group">
-                <span class="input-group-text"><i class="bi-capsule" aria-hidden="true"></i></span>
-                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese nombre", required = "required" } })
-                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+    <div class="form-horizontal m-4">
+        <h4>Nueva dosificación</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row gx-3 mb-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi-capsule" aria-hidden="true"></i></span>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese nombre", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <!-- Puedes agregar más campos aquí si es necesario -->
+        </div>
+
+        <!-- Campos ocultos para enviar los datos adicionales -->
+        @Html.HiddenFor(model => model.Estado)
+        @Html.HiddenFor(model => model.IdUsuarioCreacion)
+        @Html.HiddenFor(model => model.FechaCreacion)
+        @Html.HiddenFor(model => model.IdUsuarioModificacion)
+        @Html.HiddenFor(model => model.FechaModificacion)
+
+        @* Si los objetos UsuarioCreacion y UsuarioModificacion tienen datos que deben enviarse, agrega campos ocultos para ellos *@
+        @Html.HiddenFor(model => model.UsuarioCreacion.IdUsuario)
+        @Html.HiddenFor(model => model.UsuarioCreacion.Username)
+        @Html.HiddenFor(model => model.UsuarioCreacion.Pwd)
+        @Html.HiddenFor(model => model.UsuarioCreacion.PasswordSalt)
+        @Html.HiddenFor(model => model.UsuarioCreacion.Nombre)
+        @Html.HiddenFor(model => model.UsuarioCreacion.Estado)
+
+        @Html.HiddenFor(model => model.UsuarioModificacion.IdUsuario)
+        @Html.HiddenFor(model => model.UsuarioModificacion.Username)
+        @Html.HiddenFor(model => model.UsuarioModificacion.Pwd)
+        @Html.HiddenFor(model => model.UsuarioModificacion.PasswordSalt)
+        @Html.HiddenFor(model => model.UsuarioModificacion.Nombre)
+        @Html.HiddenFor(model => model.UsuarioModificacion.Estado)
+
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" value="Create" class="btn btn-primary" id="guardarBtn"><i class="bi-floppy" aria-hidden="true"></i> Guardar</button>
             </div>
         </div>
-        <!-- Agregar más campos según sea necesario -->
+        <hr />
     </div>
-    <hr />
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" value="Create" class="btn btn-primary" id="guardarBtn"><i class="bi-floppy" aria-hidden="true"></i> Guardar</button>
-
-        </div>
-    </div>
-    <hr />
-</div>
 }
 
 

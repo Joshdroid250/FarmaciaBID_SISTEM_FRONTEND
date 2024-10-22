@@ -6,169 +6,38 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
+
+
 
 namespace FarmaciaBID.ApiServices
 {
-    public class DosageService
+    public class DosageService : BaseService<Dosage>
     {
-        private readonly string apiUrl = ApiConfig.ApiConfig.Instance.BaseUrl; // Reemplaza con la URL real del servicio REST
+        public DosageService() : base(ApiConfig.ApiConfig.Instance.BaseUrl) { }
 
-
-        public async Task<List<Dosage>> GetAllDosage()
+        public Task<List<Dosage>> GetAllDosagesAsync()
         {
-            using (var client = new HttpClient())
-            {
-                // Desactivar la validación del certificado
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await client.GetAsync("/api/Dosificaciones");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = await response.Content.ReadAsStringAsync();
-                    List<Dosage> dosages = JsonConvert.DeserializeObject<List<Dosage>>(json);
-                    return dosages;
-                }
-                else
-                {
-                    // Manejar el caso en que la solicitud no sea exitosa
-                    throw new Exception($"Error al obtener la lista de Dosificacion: {response.StatusCode}");
-                }
-
-                
-            }
+            return GetAllAsync("/api/Dosificaciones");
         }
 
-
-        public async Task CreateDosage(Dosage newDosage)
+        public Task<Dosage> GetDosageByIdAsync(int id)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                string json = JsonConvert.SerializeObject(newDosage);
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Realizar la solicitud POST
-                HttpResponseMessage response = await client.PostAsync("/api/Dosificaciones", content);
-
-                // Verificar si la respuesta indica éxito basado en el código de estado
-                if (response.IsSuccessStatusCode)
-                {
-                    // Respuesta exitosa
-                    return;
-                }
-                else if (response.StatusCode == HttpStatusCode.Conflict)
-                {
-                    // Manejar el caso de duplicado
-                    throw new Exception("Error al crear el donante. Ya existe un registro con los mismos datos.");
-                }
-                else
-                {
-                    // Manejar otros casos de error
-                    throw new Exception($"Error al crear el donante. Código de estado: {response.StatusCode}");
-                }
-            }
+            return GetByIdAsync("/api/Dosificaciones", id);
         }
 
-        public async Task<Dosage> GetDosageById(int idDosage)
+        public Task CreateDosageAsync(Dosage dosage)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await client.GetAsync($"/api/Dosificaciones/{idDosage}");
-
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = await response.Content.ReadAsStringAsync();
-                    Dosage getByIdDosage = JsonConvert.DeserializeObject<Dosage>(json);
-                    return getByIdDosage;
-                }
-                else if (response.StatusCode == HttpStatusCode.Conflict)
-                {
-                    // Manejar el caso de duplicado
-                    throw new Exception("");
-                }
-                else
-                {
-                    // Manejar otros casos de error
-                    throw new Exception($"Error al obtener la dosificacion con ID {idDosage}: {response.StatusCode}");
-                }
-
-                
-            }
+            return CreateAsync("/api/Dosificaciones", dosage);
         }
 
-        public async Task UpdateDosage(Dosage newDosage, int idDosage)
+        public Task UpdateDosageAsync(Dosage dosage, int id)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                string json = JsonConvert.SerializeObject(newDosage);
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Realizar la solicitud POST
-                HttpResponseMessage response = await client.PutAsync($"/api/Dosificaciones/{idDosage}", content);
-
-                // Verificar si la respuesta indica éxito basado en el código de estado
-                if (response.IsSuccessStatusCode)
-                {
-                    // Respuesta exitosa
-                    return;
-                }
-                else if (response.StatusCode == HttpStatusCode.Conflict)
-                {
-                    // Manejar el caso de duplicado
-                    throw new Exception("Error al crear el dosificacion. Ya existe un registro con los mismos datos.");
-                }
-                else
-                {
-                    // Manejar otros casos de error
-                    throw new Exception($"Error al actualizar dosificacion. Código de estado: {response.StatusCode}");
-                }
-            }
+            return UpdateAsync("/api/Dosificaciones", id, dosage);
         }
 
-        public async Task DeleteDosage(int idDosage)
+        public Task DeleteDosageAsync(int id)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Realizar la solicitud DELETE
-                HttpResponseMessage response = await client.DeleteAsync($"/api/Dosificaciones/{idDosage}");
-
-                // Verificar si la respuesta indica éxito basado en el código de estado
-                if (response.IsSuccessStatusCode)
-                {
-                    // Respuesta exitosa
-                    return;
-                }
-                else
-                {
-                    // Manejar casos de error
-                    throw new Exception($"Error al eliminar dosificación. Código de estado: {response.StatusCode}");
-                }
-            }
+            return DeleteAsync("/api/Dosificaciones", id);
         }
     }
 }

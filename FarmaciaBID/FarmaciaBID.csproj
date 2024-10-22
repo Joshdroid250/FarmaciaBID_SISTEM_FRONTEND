@@ -174,6 +174,7 @@
     <Compile Include="Models\ExpedienteView.cs" />
     <Compile Include="Models\Measures.cs" />
     <Compile Include="Models\Patients.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2430,6 +2431,7 @@
     <Content Include="Views\Proceedings\ViewProceedings.cshtml" />
     <Content Include="Views\Proceedings\CreateProceedings.cshtml" />
     <Content Include="Views\Proceedings\UpdateProceedings.cshtml" />
+    <Content Include="Views\Usuarios\ViewUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
