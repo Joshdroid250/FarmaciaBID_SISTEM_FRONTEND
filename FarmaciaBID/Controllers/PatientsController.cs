@@ -22,12 +22,10 @@ namespace FarmaciaBID.Controllers
             return View(employe);
         }
 
-
         public async Task<ActionResult> CreatePatients()
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\FarmaciaBID",
+    "\\FarmaciaBID\\ApiConfig",
+    "\\FarmaciaBID\\ApiServices",
+    "\\FarmaciaBID\\Models",
+    "\\FarmaciaBID\\Views",
+    "\\FarmaciaBID\\Views\\Dosages",
+    "\\FarmaciaBID\\Views\\Home",
+    "\\FarmaciaBID\\Views\\Usuarios"
+  ],
+  "PreviewInSolutionExplorer": false
+}
