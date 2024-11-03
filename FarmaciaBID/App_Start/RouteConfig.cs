@@ -57,6 +57,12 @@ namespace FarmaciaBID
                 url: "Users/{action}/{id}",
                 defaults: new { controller = "Users", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "LotePharmaRoute",
+                url: "LotPharma/{action}/{id}",
+                defaults: new { controller = "LotPharma", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

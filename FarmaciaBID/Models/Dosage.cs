@@ -7,9 +7,7 @@ namespace FarmaciaBID.Models
 {
     public class Dosage
     {
-        public int IdDosificacion { get; set; }
-        public string Nombre { get; set; }
-        public int Estado { get; set; }
-       
+        public int idDosificacion { get; set; }
+        public string nombre { get; set; }       
     }
 }

@@ -1,94 +1,92 @@
-﻿using System.Linq;
+﻿using FarmaciaBID.ApiServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using FarmaciaBID.Models;
 using FarmaciaBID.ApiServices.ApiConfig;
 using System.Net.Http;
-using FarmaciaBID.ApiServices;
-using System;
-using System.Collections.Generic;
 
 namespace FarmaciaBID.Controllers
 {
-    public class ProceedingsController : Controller
+    public class LotPharmaController : Controller
     {
-        private readonly ExpedienteService _expedienteService;
+        private readonly LotPharmaService _LotePharmaService;
         private readonly string apiUrl = ApiConfig.Instance.BaseUrl;
-        private readonly MeasuresServices MeasuresService = new MeasuresServices();
-        private readonly PatientsService patientS = new PatientsService();
-
-        public ProceedingsController()
+        private readonly PresentacionesService presentacionS = new PresentacionesService();
+        // GET: LotPharma
+        public LotPharmaController()
         {
-            _expedienteService = new ExpedienteService();
+            _LotePharmaService = new LotPharmaService();
         }
 
-        private async Task<IEnumerable<SelectListItem>> ObtenerPaciente()
+        private async Task<IEnumerable<SelectListItem>> ObtenerPresentacion()
         {
-            var paciente = await patientS.GetAllPacientes();
+            var presenta = await presentacionS.GetAllAsync();
 
             // Verifica que oficinas tenga datos antes de asignarlo a ViewBag
-            if (paciente != null && paciente.Any())
+            if (presenta != null && presenta.Any())
             {
-                return new SelectList(paciente, "idPaciente", "nombres", "apellidos");
+                return new SelectList(presenta, "idPresentacion", "nombre");
             }
             else
             {
                 // Si no hay oficinas, puedes manejarlo de alguna manera (por ejemplo, estableciendo un mensaje de error)
-                ModelState.AddModelError("", "No se encontraron pacientes disponibles.");
+                ModelState.AddModelError("", "No se encontraron Presentaciones.");
                 return Enumerable.Empty<SelectListItem>();
             }
         }
 
-        
-        public async Task<ActionResult> ViewProceedings()
+        public async Task<ActionResult> ViewLotPharma()
         {
-            ViewBag.Paciente = await ObtenerPaciente();
-            var expediente = await _expedienteService.GetAllExpedientesAsync();
-
-            return View(expediente);
+            ViewBag.Presentaciones = await ObtenerPresentacion();
+            var lotpharma = await _LotePharmaService.GetAllAsync();
+            return View(lotpharma);
         }
 
-
-        public async Task<ActionResult> CreateProceedings()
+        public async Task<ActionResult> CreateLotPharma()
         {
-            ViewBag.Paciente = await ObtenerPaciente();
+            ViewBag.Presentaciones = await ObtenerPresentacion();
             return View();
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> CreateProceedings(Expediente expe)
+        public async Task<ActionResult> CreateLotPharma(LotPharma lotepharma)
         {
-            await _expedienteService.CreateExpedientesAsync(expe);
-            return RedirectToAction("ViewProceedings");
+            await _LotePharmaService.CreateAsync(lotepharma);
+            return RedirectToAction("ViewLotPharma");
         }
 
 
         [HttpGet]
-        public async Task<ActionResult> UpdateProceedings(int id)
+        public async Task<ActionResult> UpdateLotPharma(int id)
         {
             try
             {
-                ViewBag.Paciente = await ObtenerPaciente();
-                var expe = await _expedienteService.GetExpedientesByIdAsync(id);
-                return View("UpdateProceedings", expe);
+                ViewBag.Presentaciones = await ObtenerPresentacion();
+                var lotepharma = await _LotePharmaService.GetByIdAsync(id);
+                return View("UpdateLotPharma", lotepharma);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Error al obtener el Expediente: {ex.Message}");
+                ModelState.AddModelError("", $"Error al obtener el lote de farmacos: {ex.Message}");
                 return View("Error");
             }
         }
 
+
         [HttpPost]
-        public async Task<ActionResult> UpdateProceedings(Expediente updateExpediente, int id)
+        public async Task<ActionResult> UpdateLotPharma(LotPharma lotepharma, int id)
         {
             try
             {
-                await _expedienteService.UpdateExpedientesAsync(updateExpediente, id);
+                ViewBag.Presentaciones = await ObtenerPresentacion();
+                await _LotePharmaService.UpdateAsync(lotepharma, id);
                 // Después de la actualización exitosa, redirigir a la vista ViewUser
-                return RedirectToAction("ViewProceedings");
+                return RedirectToAction("ViewLotPharma");
             }
             catch (Exception ex)
             {
@@ -108,6 +106,7 @@ namespace FarmaciaBID.Controllers
             }
         }
 
+
         public ActionResult Delete(int id)
         {
             try
@@ -117,14 +116,14 @@ namespace FarmaciaBID.Controllers
                     client.BaseAddress = new Uri(apiUrl);
 
                     // HTTP DELETE sin cuerpo del mensaje
-                    var deleteTask = client.DeleteAsync($"/api/Expedientes/{id}");
+                    var deleteTask = client.DeleteAsync($"/api/LoteFarmacos/{id}");
 
                     deleteTask.Wait();
 
                     var result = deleteTask.Result;
                     if (result.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("ViewProceedings"); // OK sin contenido
+                        return RedirectToAction("ViewLotPharma"); // OK sin contenido
                     }
                 }
 

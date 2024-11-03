@@ -156,9 +156,10 @@
     <Compile Include="ApiServices\DosageService.cs" />
     <Compile Include="ApiServices\ExpedienteService.cs" />
     <Compile Include="ApiServices\LoginService.cs" />
+    <Compile Include="ApiServices\LotPharmaService.cs" />
     <Compile Include="ApiServices\MeasuresServices.cs" />
     <Compile Include="ApiServices\PatientsService.cs" />
-    <Compile Include="ApiServices\ProceedingsServices.cs" />
+    <Compile Include="ApiServices\PresentacionesService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Controllers\DosagesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LotPharmaController.cs" />
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\ProceedingsController.cs" />
@@ -178,8 +180,11 @@
     <Compile Include="Models\ExpedienteView.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\LoginResponse.cs" />
+    <Compile Include="Models\LotPharmaView.cs" />
+    <Compile Include="Models\LotPharma.cs" />
     <Compile Include="Models\Measures.cs" />
     <Compile Include="Models\Patients.cs" />
+    <Compile Include="Models\Presentacion.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2439,10 +2444,13 @@
     <Content Include="Views\Proceedings\UpdateProceedings.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\LotPharma\ViewLotPharma.cshtml" />
+    <Content Include="Views\LotPharma\CreateLotPharma.cshtml" />
+    <Content Include="Views\LotPharma\UpdateLotPharma.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\LotPharma\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

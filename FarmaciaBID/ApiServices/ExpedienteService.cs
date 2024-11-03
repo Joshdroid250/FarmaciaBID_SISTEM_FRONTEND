@@ -13,10 +13,35 @@ namespace FarmaciaBID.ApiServices
 {
 
 
-    public class ExpedienteService
+    public class ExpedienteService : BaseService<Expediente>
     {
 
-        private readonly string apiUrl = ApiConfig.ApiConfig.Instance.BaseUrl; // Reemplaza con la URL real del servicio REST
+        public ExpedienteService() : base(ApiConfig.ApiConfig.Instance.BaseUrl) { }
+
+        public Task<List<ExpedienteView>> GetAllExpedientesAsync()
+        {
+            return GetAllAsync<ExpedienteView>("/api/Expedientes/ExpedienteView");
+        }
+
+        public Task<Expediente> GetExpedientesByIdAsync(int id)
+        {
+            return GetByIdAsync("/api/Expedientes", id);
+        }
+
+        public Task CreateExpedientesAsync(Expediente expediente)
+        {
+            return CreateAsync("/api/Expedientes", expediente);
+        }
+
+        public Task UpdateExpedientesAsync(Expediente expediente, int id)
+        {
+            return UpdateAsync("/api/Expedientes", id, expediente);
+        }
+
+        public Task DeleteExpedientesAsync(int id)
+        {
+            return DeleteAsync("/api/Expedientes", id);
+        }
 
 
     }

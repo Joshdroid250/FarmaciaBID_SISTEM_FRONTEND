@@ -86,5 +86,26 @@ namespace FarmaciaBID.ApiServices
                 throw new Exception($"Error en la solicitud: {response.StatusCode} - {response.ReasonPhrase}");
             }
         }
+
+
+        public async Task<T> GetAsync<T>(string endpoint, int id)
+        {
+            var response = await client.GetAsync($"{endpoint}/{id}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(content);
+        }
+
+
+        public async Task<List<T>> GetAllAsync<T>(string endpoint)
+        {
+            var response = await client.GetAsync(endpoint);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<T>>(content);
+        }
+
     }
 }
