@@ -6,13 +6,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using FarmaciaBID.Filters;
 
 namespace FarmaciaBID.Controllers
 {
+    [AuthFilter]
     public class HomeController : Controller
     {
 
         private readonly LoginService _HomeService;
+
+
 
         public HomeController()
         {
@@ -22,7 +26,6 @@ namespace FarmaciaBID.Controllers
         {
             return View();
         }
-
 
         public async Task<ActionResult> Login()
         {

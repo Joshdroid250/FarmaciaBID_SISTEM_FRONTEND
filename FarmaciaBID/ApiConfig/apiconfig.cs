@@ -20,10 +20,10 @@ namespace FarmaciaBID.ApiServices.ApiConfig
             switch (environment?.ToLower())
             {
                 case "development":
-                    BaseUrl = "http://farmaciaapi.somee.com";
+                    BaseUrl = "https://farmaciaapisjm.azurewebsites.net";
                     break;
                 case "deployment":
-                    BaseUrl = "http://farmaciaapi.somee.com";
+                    BaseUrl = "https://farmaciaapisjm.azurewebsites.net";
                     break;
                 default:
                     throw new InvalidOperationException("Entorno no válido especificado en el archivo web.config");

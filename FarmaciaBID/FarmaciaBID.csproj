@@ -172,6 +172,7 @@
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\ProceedingsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Filters\Filters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -16,6 +14,18 @@ namespace FarmaciaBID
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Session != null) // Verifica si la sesión no es null
+            {
+                if (HttpContext.Current.Session["AuthToken"] == null &&
+                    !HttpContext.Current.Request.Url.AbsolutePath.Contains("/Login"))
+                {
+                    HttpContext.Current.Response.Redirect("~/Login/Login");
+                }
+            }
         }
     }
 }
