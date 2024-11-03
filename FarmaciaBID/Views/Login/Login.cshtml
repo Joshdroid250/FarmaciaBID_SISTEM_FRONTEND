@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/bundles/login")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<body>
+    <section class="bg-dark vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body rounded-3 p-5 text-center">
+                            <div class="mb-5">
+                                <h1>FARMACIA BID</h1>
+                            </div>
+                            <!-- Formulario -->
+                            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                            {
+                                <!--inputs-->
+                                <div class="form-outline mb-4">
+                                    <input name="username" type="text" class="form-control form-control-lg rounded-1" placeholder="Usuario" />
+                                    <hr />
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input name="password" type="password" class="form-control form-control-lg rounded-1" placeholder="Contraseña" />
+                                    <hr />
+                                </div>
+
+                                <form action="/Home/Login" method="post">
+                                    <!--inputs-->
+                                    <!-- (Los campos de entrada que modifiqué anteriormente) -->
+                                    <!-- Botón de envío -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn-custom btn btn-primary btn-lg btn-block rounded-1" type="submit">Iniciar Sesión</button>
+                                    </div>
+                                </form>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

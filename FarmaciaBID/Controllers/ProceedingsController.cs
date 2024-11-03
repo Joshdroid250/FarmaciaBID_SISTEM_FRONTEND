@@ -34,6 +34,12 @@ namespace FarmaciaBID.Controllers
                 return Enumerable.Empty<SelectListItem>();
             }
         }
+
+        public ActionResult ViewCopia()
+        {
+
+            return View();
+        }
         public async Task<ActionResult> ViewProceedings()
         {
             ViewBag.Paciente = await ObtenerPaciente();

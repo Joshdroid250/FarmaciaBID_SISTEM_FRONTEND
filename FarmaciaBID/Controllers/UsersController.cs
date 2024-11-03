@@ -14,8 +14,6 @@ namespace FarmaciaBID.Controllers
 {
     public class UsersController : Controller
     {
-
-
         private readonly UserService _userService;
 
         public UsersController()
@@ -28,7 +26,6 @@ namespace FarmaciaBID.Controllers
         {
 
             var users = await _userService.GetAllUsersAsync();
-
             return View(users);
         }
         // GET: Users/Create

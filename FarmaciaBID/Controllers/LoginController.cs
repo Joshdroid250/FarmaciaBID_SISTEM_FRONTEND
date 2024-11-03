@@ -9,14 +9,14 @@ using System.Web.Mvc;
 
 namespace FarmaciaBID.Controllers
 {
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
 
-        private readonly LoginService _HomeService;
+        private readonly LoginService _LoginService;
 
-        public HomeController()
+        public LoginController()
         {
-            _HomeService = new LoginService();
+            _LoginService = new LoginService();
         }
         public ActionResult Index()
         {
@@ -36,7 +36,7 @@ namespace FarmaciaBID.Controllers
             {
                 try
                 {
-                    string token = await _HomeService.LoginAsync(login);
+                    string token = await _LoginService.LoginAsync(login);
                     Session["AuthToken"] = token; // Guarda el token en la sesión
                     return RedirectToAction("Index", "Home");
                 }

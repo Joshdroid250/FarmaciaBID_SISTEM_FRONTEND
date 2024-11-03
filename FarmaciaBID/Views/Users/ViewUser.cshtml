@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Usuarios";
     @model List<FarmaciaBID.Models.Users>
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,8 +18,8 @@
             <div class="col-lg-12">
                 <div class="data-table-list card shadow-sm">
                     <div class="card-header custom-bg-color text-white">
-                        <h2>Usuarios</h2>
-                        <p>Usuarios de Farmacia BID</p>
+                        <h2>Dosificaciones</h2>
+                        <p>Dosificaciones de medicamentos de Farmacia BID</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -35,16 +34,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var Users in Model)
+                                    @foreach (var users in Model)
                                     {
                                         <tr>
-                                            <td>@Users.username</td>
-                                            <td>@Users.nombre</td>
+                                            <td>@users.idUsuario</td>
+                                            <td>@users.nombre</td>
                                             <td>
-                                                <a href="#" class="updateDosageBtn" data-dosage-id="@Users.idUsuario">
+                                                <a href="#" class="updateDosageBtn" data-dosage-id="@users.idUsuario">
                                                     <i class="bi bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                                 </a>
-                                                <a href="#" onclick="confirmDelete('@Url.Action("DeleteDosage", new { id = Users.idUsuario })')">
+                                                <a href="#" onclick="confirmDelete('@Url.Action("DeleteDosage", new { id = users.idUsuario })')">
                                                     <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
                                                 </a>
                                             </td>
@@ -81,7 +80,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-
+                           
                         </div>
                     </div>
                 </div>
@@ -107,7 +106,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-
+                            
                         </div>
                     </div>
                 </div>
@@ -180,62 +179,57 @@
             });
         });
     </script>
-    <!--
 
-            <script>
-            $(document).ready(function () {
-                // Manejador de evento click para el botón
-                $('#botonAbrirModal').on('click', function () {
-                    var url = '@Url.Action("CreateDosages", "Dosages")';
-                    $.get(url, function (data) {
-                        $('.modal-content').html(data);
-                        $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
-                    });
+    <script>
+        $(document).ready(function () {
+            // Manejador de evento click para el botón
+            $('#botonAbrirModal').on('click', function () {
+                var url = '@Url.Action("CreateDosages", "Dosages")';
+                $.get(url, function (data) {
+                    $('.modal-content').html(data);
+                    $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
                 });
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                // Manejador de evento click para el botón
-                $('#botonAbrirModalUpdate').on('click', function () {
-                    var url = '@Url.Action("UpdateDosage", "Dosages")';
-                    $.get(url, function (data) {
-                        $('.modal-content').html(data);
-                        $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
-                    });
-                });
-            });
-        </script>
-
-
-        <script>
-            $(document).ready(function () {
-        // Manejador de evento click para el botón de actualizar en la tabla
-        $('.updateDosageBtn').on('click', function () {
-            var dosageId = $(this).data('dosage-id'); // Obtener el ID de la dosificación del atributo de datos
-            var url = '@Url.Action("UpdateDosage", "Dosages")' + '?id=' + dosageId; // Construir la URL con el ID de la dosificación
-            $.get(url, function (data) {
-                $('.modal-content').html(data);
-                $('#UpdateModal').modal('show'); // Mostrar el modal de actualización
             });
         });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Manejador de evento click para el botón
+            $('#botonAbrirModalUpdate').on('click', function () {
+                var url = '@Url.Action("UpdateDosage", "Dosages")';
+                $.get(url, function (data) {
+                    $('.modal-content').html(data);
+                    $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+    // Manejador de evento click para el botón de actualizar en la tabla
+    $('.updateDosageBtn').on('click', function () {
+        var dosageId = $(this).data('dosage-id'); // Obtener el ID de la dosificación del atributo de datos
+        var url = '@Url.Action("UpdateDosage", "Dosages")' + '?id=' + dosageId; // Construir la URL con el ID de la dosificación
+        $.get(url, function (data) {
+            $('.modal-content').html(data);
+            $('#UpdateModal').modal('show'); // Mostrar el modal de actualización
+        });
     });
-        </script>
+});
+    </script>
 
 
-        <script>
-            function confirmDelete(deleteUrl) {
-                if (confirm("¿Estás seguro de que deseas eliminar la dosificacion?")) {
-                    window.location.href = deleteUrl; // Redirige a la acción de eliminación
-                }
+    <script>
+        function confirmDelete(deleteUrl) {
+            if (confirm("¿Estás seguro de que deseas eliminar la dosificacion?")) {
+                window.location.href = deleteUrl; // Redirige a la acción de eliminación
             }
-        </script>
-
-     -->
-
+        }
+    </script>
 
 
 }
-
 

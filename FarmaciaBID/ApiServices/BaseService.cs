@@ -14,7 +14,7 @@ namespace FarmaciaBID.ApiServices
     public class BaseService<T>
     {
         private readonly string apiUrl;
-        private readonly HttpClient client;
+        protected readonly HttpClient client;
 
         public BaseService(string baseUrl)
         {

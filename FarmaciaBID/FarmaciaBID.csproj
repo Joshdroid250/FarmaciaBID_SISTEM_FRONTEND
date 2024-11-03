@@ -155,6 +155,7 @@
     <Compile Include="ApiServices\BaseService.cs" />
     <Compile Include="ApiServices\DosageService.cs" />
     <Compile Include="ApiServices\ExpedienteService.cs" />
+    <Compile Include="ApiServices\LoginService.cs" />
     <Compile Include="ApiServices\MeasuresServices.cs" />
     <Compile Include="ApiServices\PatientsService.cs" />
     <Compile Include="ApiServices\ProceedingsServices.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DosagesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -174,6 +176,8 @@
     <Compile Include="Models\Dosage.cs" />
     <Compile Include="Models\Expediente.cs" />
     <Compile Include="Models\ExpedienteView.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\LoginResponse.cs" />
     <Compile Include="Models\Measures.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Users.cs" />
@@ -2420,7 +2424,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Users\ViewUser.cshtml" />
     <Content Include="Views\Dosages\ViewDosage.cshtml" />
     <Content Include="Views\Dosages\CreateDosages.cshtml" />
     <Content Include="Views\Dosages\UpdateDosage.cshtml" />
@@ -2433,7 +2437,8 @@
     <Content Include="Views\Proceedings\ViewProceedings.cshtml" />
     <Content Include="Views\Proceedings\CreateProceedings.cshtml" />
     <Content Include="Views\Proceedings\UpdateProceedings.cshtml" />
-    <Content Include="Views\Users\ViewUsers.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
