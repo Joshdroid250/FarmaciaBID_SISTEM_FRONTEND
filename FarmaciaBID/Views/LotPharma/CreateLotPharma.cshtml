@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Nueva Dosificacion";
     Layout = null;
+    int userId = Session["UserId"] != null ? (int)Session["UserId"] : 0;
 }
 
 @using (Html.BeginForm())
@@ -51,6 +52,11 @@
                 @Html.ValidationMessageFor(model => model.idPresentacion, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @Html.Hidden("idUsuarioCreacion", userId)
+        @Html.Hidden("fechaCreacion", DateTime.Now)
+        @Html.Hidden("idUsuarioModificacion", userId)
+        @Html.Hidden("fechaModificacion", DateTime.Now)
     </div>
         <hr />
         <div class="form-group">
