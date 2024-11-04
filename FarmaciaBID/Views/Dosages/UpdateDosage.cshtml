@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Editar Dosificacion";
     Layout = null;
+    int userId = Session["UserId"] != null ? (int)Session["UserId"] : 0;
 }
 
 @using (Html.BeginForm())
@@ -29,6 +30,11 @@
             </div>
         </div>
         <!-- Agregar más campos según sea necesario -->
+
+        @Html.Hidden("idUsuarioCreacion", userId)
+        @Html.Hidden("fechaCreacion", DateTime.Now)
+        @Html.Hidden("idUsuarioModificacion", userId)
+        @Html.Hidden("fechaModificacion", DateTime.Now)
     </div>
         <hr />
         <div class="form-group">

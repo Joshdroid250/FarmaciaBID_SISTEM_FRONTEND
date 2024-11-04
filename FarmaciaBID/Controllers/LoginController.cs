@@ -53,6 +53,17 @@ namespace FarmaciaBID.Controllers
             return View("Login");
         }
 
+        public ActionResult Logout()
+        {
+            // Limpiar la sesión
+            Session.Clear();
+            Session.Abandon();
+
+            // Redirigir al inicio de sesión
+            return RedirectToAction("Login", "Login");
+        }
+
+
 
         public ActionResult About()
         {
