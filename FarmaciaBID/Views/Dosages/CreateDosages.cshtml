@@ -1,10 +1,10 @@
 ﻿@model FarmaciaBID.Models.Dosage
 
-@{
-    ViewBag.Title = "Nueva Dosificacion";
+@{ ViewBag.Title = "Nueva Dosificacion";
     Layout = null;
+    int userId = Session["UserId"] != null ? (int)Session["UserId"] : 0; 
+    
 }
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -13,17 +13,22 @@
         <h4>Crear Dosificacion</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row gx-3 mb-3">
-            
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi-capsule" aria-hidden="true"></i></span>
-                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese nombre", required = "required" } })
-                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
-                </div>
+    <div class="row gx-3 mb-3">
+
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi-capsule" aria-hidden="true"></i></span>
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese nombre", required = "required" } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
             </div>
-            <!-- Agregar más campos según sea necesario -->
         </div>
+        <!-- Agregar más campos según sea necesario -->
+        <!-- Campo oculto para idUsuarioCreacion -->
+        @Html.Hidden("idUsuarioCreacion", userId)
+        @Html.Hidden("fechaCreacion", DateTime.Now)
+        @Html.Hidden("idUsuarioModificacion", userId)
+        @Html.Hidden("fechaModificacion", DateTime.Now)
+    </div>
         <hr />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

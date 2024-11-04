@@ -32,25 +32,6 @@ namespace FarmaciaBID.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Login(LoginModel login)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    string token = await _HomeService.LoginAsync(login);
-                    Session["AuthToken"] = token; // Guarda el token en la sesión
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"Error al iniciar sesión: {ex.Message}");
-                }
-            }
-            return View("Login");
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

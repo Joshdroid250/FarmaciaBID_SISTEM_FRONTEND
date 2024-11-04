@@ -12,9 +12,8 @@ namespace FarmaciaBID.ApiServices
         // Elimina la declaración redundante de `client`
         public LoginService() : base(ApiConfig.ApiConfig.Instance.BaseUrl) { }
 
-        public async Task<string> LoginAsync(LoginModel login)
+        public async Task<LoginResponse> LoginAsync(LoginModel login)
         {
-            // Usa el `client` de la clase base
             string json = JsonConvert.SerializeObject(login);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync("/api/Auth/login", content);
@@ -22,8 +21,9 @@ namespace FarmaciaBID.ApiServices
             if (response.IsSuccessStatusCode)
             {
                 string responseJson = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<dynamic>(responseJson);
-                return result.token;
+                // Deserializa la respuesta en un objeto LoginResponse
+                var result = JsonConvert.DeserializeObject<LoginResponse>(responseJson);
+                return result; // Devuelve el objeto LoginResponse que incluye el token y el ID
             }
             else
             {

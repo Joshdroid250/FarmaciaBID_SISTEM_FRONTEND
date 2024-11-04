@@ -36,8 +36,13 @@ namespace FarmaciaBID.Controllers
             {
                 try
                 {
-                    string token = await _LoginService.LoginAsync(login);
-                    Session["AuthToken"] = token; // Guarda el token en la sesión
+                    // Obtiene el objeto LoginResponse que incluye el token y el ID
+                    var loginResponse = await _LoginService.LoginAsync(login);
+
+                    // Guarda el token y el ID en la sesión
+                    Session["AuthToken"] = loginResponse.token; // Guarda el token en la sesión
+                    Session["UserId"] = loginResponse.id; // Guarda el ID en la sesión
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
@@ -47,6 +52,7 @@ namespace FarmaciaBID.Controllers
             }
             return View("Login");
         }
+
 
         public ActionResult About()
         {
