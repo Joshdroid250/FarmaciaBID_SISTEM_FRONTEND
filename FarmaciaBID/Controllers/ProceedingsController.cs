@@ -40,13 +40,11 @@ namespace FarmaciaBID.Controllers
             }
         }
 
-        
+
         public async Task<ActionResult> ViewProceedings()
         {
-            ViewBag.Paciente = await ObtenerPaciente();
-            var expediente = await _expedienteService.GetAllExpedientesAsync();
-
-            return View(expediente);
+            var expe = await _expedienteService.GetAllAsync();
+            return View(expe);
         }
 
 

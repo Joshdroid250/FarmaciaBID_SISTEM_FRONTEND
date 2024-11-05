@@ -179,7 +179,6 @@
     </Compile>
     <Compile Include="Models\Dosage.cs" />
     <Compile Include="Models\Expediente.cs" />
-    <Compile Include="Models\ExpedienteView.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\LoginResponse.cs" />
     <Compile Include="Models\LotPharmaView.cs" />

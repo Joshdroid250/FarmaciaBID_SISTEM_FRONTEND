@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Expediente";
-    @model List<FarmaciaBID.Models.ExpedienteView>
+    @model List<FarmaciaBID.Models.Expediente>
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -28,9 +28,6 @@
                                     <tr>
                                         <th scope="col" style="width:15%">ID</th>
                                         <th scope="col">Nombres y Apellido</th>
-                                        <th scope="col">Nacimiento</th>
-                                        <th scope="col">Telefono</th>
-                                        <th scope="col">Sexo</th>
                                         <th scope="col">
                                             Opciones <a type="button" id="botonAbrirModal"><i class="bi bi-plus-square-fill" style="color: green; font-size: 20px;"></i></a>
                                         </th>
@@ -41,19 +38,17 @@
                                     {
                                         <tr>
                                             <td>@expe.idExpediente</td>
-                                            <td>@expe.nombres</td>
-                                            <td>@expe.fechaNacimiento</td>
-                                            <td>@expe.telefono</td>
-                                            <td>
-                                                @if (expe.sexo == "H")
+                                            <td>@expe.notas</td>
+                                            <!-- <td>
+                                                @if (expe.notas == "H")
                                                 {
                                                     <i class="bi bi-gender-male" style="color: blue; font-size: 20px;"></i>
                                                 }
-                                                else if (expe.sexo == "M")
+                                                else if (expe.notas == "M")
                                                 {
                                                     <i class="bi bi-gender-female" style="color: pink; font-size: 20px;"></i>
                                                 }
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <a href="#" class="updateProceedingsBtn" data-dosage-id="@expe.idExpediente">
                                                     <i class="bi bi-pencil-square" style="color: green; font-size: 20px;"></i>
@@ -69,9 +64,6 @@
                                     <tr>
                                         <th scope="col" style="width:15%">ID</th>
                                         <th scope="col">Nombres y Apellido</th>
-                                        <th scope="col">Nacimiento</th>
-                                        <th scope="col">Telefono</th>
-                                        <th scope="col">Sexo</th>
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </tfoot>
@@ -97,9 +89,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
-                            @Html.Partial("CreateProceedings", new FarmaciaBID.Models.Expediente())
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -124,9 +114,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
-                            @Html.Partial("UpdateProceedings", new FarmaciaBID.Models.Expediente())
-                        </div>
+
                     </div>
                 </div>
             </div>
