@@ -53,7 +53,7 @@ namespace FarmaciaBID.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Error al obtener el Expediente: {ex.Message}");
+                ModelState.AddModelError("", $"Error al obtener la dosificacion: {ex.Message}");
                 return View("Error");
             }
         }

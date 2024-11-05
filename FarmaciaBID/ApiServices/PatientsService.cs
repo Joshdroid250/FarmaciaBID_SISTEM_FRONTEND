@@ -10,139 +10,34 @@ using System.Net;
 
 namespace FarmaciaBID.ApiServices
 {
-    public class PatientsService
+    public class PatientsService : BaseService<Patients>
     {
-        private readonly string apiUrl = ApiConfig.ApiConfig.Instance.BaseUrl; // Reemplaza con la URL real del servicio REST
-
-
-        public async Task<List<Patients>> GetAllPacientes()
+        
+        public PatientsService() : base(ApiConfig.ApiConfig.Instance.BaseUrl) { }
+        public Task<List<Patients>> GetAllAsync()
         {
-            using (var client = new HttpClient())
-            {
-                // Desactivar la validación del certificado
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await client.GetAsync("/api/Pacientes");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = await response.Content.ReadAsStringAsync();
-                    List<Patients> patients = JsonConvert.DeserializeObject<List<Patients>>(json);
-                    return patients;
-                }
-                else
-                {
-                    // Manejar el caso en que la solicitud no sea exitosa
-                    throw new Exception($"Error al obtener la lista de pacientes: {response.StatusCode}");
-                }
-
-
-            }
+            return GetAllAsync("/api/Pacientes");
         }
 
-        public async Task CreatePacientes(Patients newPatient)
+        public Task<Patients> GetByIdAsync(int id)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                string json = JsonConvert.SerializeObject(newPatient);
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Realizar la solicitud POST
-                HttpResponseMessage response = await client.PostAsync("/api/Pacientes", content);
-
-                // Verificar si la respuesta indica éxito basado en el código de estado
-                if (response.IsSuccessStatusCode)
-                {
-                    // Respuesta exitosa
-                    return;
-                }
-                else if (response.StatusCode == HttpStatusCode.Conflict)
-                {
-                    // Manejar el caso de duplicado
-                    throw new Exception("Error al crear el donante. Ya existe un registro con los mismos datos.");
-                }
-                else
-                {
-                    // Manejar otros casos de error
-                    throw new Exception($"Error al crear el donante. Código de estado: {response.StatusCode}");
-                }
-            }
+            return GetByIdAsync("/api/Pacientes", id);
         }
 
-
-        public async Task<Patients> GetPatientsById(int idPaciente)
+        public Task CreateAsync(Patients paciente)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await client.GetAsync($"/api/Pacientes/{idPaciente}");
-
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = await response.Content.ReadAsStringAsync();
-                    Patients getByIdPatients = JsonConvert.DeserializeObject<Patients>(json);
-                    return getByIdPatients;
-                }
-                else if (response.StatusCode == HttpStatusCode.Conflict)
-                {
-                    // Manejar el caso de duplicado
-                    throw new Exception("");
-                }
-                else
-                {
-                    // Manejar otros casos de error
-                    throw new Exception($"Error al obtener el paciente con ID {idPaciente}: {response.StatusCode}");
-                }
-
-
-            }
+            return CreateAsync("/api/Pacientes", paciente);
         }
 
-        public async Task UpdatePatients(Patients editPatient, int idPatient)
+        public Task UpdateAsync(Patients paciente, int id)
         {
-            using (var client = new HttpClient())
-            {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                client.BaseAddress = new Uri(apiUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                string json = JsonConvert.SerializeObject(editPatient);
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Realizar la solicitud POST
-                HttpResponseMessage response = await client.PutAsync($"/api/Pacientes/{idPatient}", content);
-
-                // Verificar si la respuesta indica éxito basado en el código de estado
-                if (response.IsSuccessStatusCode)
-                {
-                    // Respuesta exitosa
-                    return;
-                }
-                else if (response.StatusCode == HttpStatusCode.Conflict)
-                {
-                    // Manejar el caso de duplicado
-                    throw new Exception("Error al crear el dosificacion. Ya existe un registro con los mismos datos.");
-                }
-                else
-                {
-                    // Manejar otros casos de error
-                    throw new Exception($"Error al actualizar el paciente. Código de estado: {response.StatusCode}");
-                }
-            }
+            return UpdateAsync("/api/Pacientes", id, paciente);
         }
+
+        public Task DeleteAsync(int id)
+        {
+            return DeleteAsync("/api/Pacientes", id);
+        }
+
     }
 }

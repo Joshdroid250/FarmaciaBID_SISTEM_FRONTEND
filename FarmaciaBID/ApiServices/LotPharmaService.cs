@@ -17,11 +17,6 @@ namespace FarmaciaBID.ApiServices
             return GetAllAsync("/api/LoteFarmacos");
         }
 
-        public Task<List<LotPharmaView>> GetAllViewAsync()
-        {
-            return GetAllAsync<LotPharmaView>("/api/LoteFarmacos/LoteFarmacosView");
-        }
-
         public Task<LotPharma> GetByIdAsync(int id)
         {
             return GetByIdAsync("/api/LoteFarmacos", id);

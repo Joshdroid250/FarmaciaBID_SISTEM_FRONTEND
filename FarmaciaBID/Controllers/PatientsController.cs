@@ -14,12 +14,17 @@ namespace FarmaciaBID.Controllers
     {
         private readonly PatientsService patientsService = new PatientsService();
         private readonly string apiUrl = ApiConfig.Instance.BaseUrl;
+
+        public PatientsController()
+        {
+            patientsService = new PatientsService();
+        }
         public async Task<ActionResult> ViewPatients()
         {
 
-            var employe = await patientsService.GetAllPacientes();
+            var paciente = await patientsService.GetAllAsync();
 
-            return View(employe);
+            return View(paciente);
         }
 
         public async Task<ActionResult> CreatePatients()
@@ -28,35 +33,12 @@ namespace FarmaciaBID.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreatePatients(Patients newPatient)
+        public async Task<ActionResult> CreatePatients(Patients paciente)
         {
-            try
-            {
-                // Verificar si el modelo es válido antes de intentar guardarlo en la base de datos
-                if (ModelState.IsValid)
-                {
-                    // Lógica para guardar la nueva dosificación en la base de datos utilizando el servicio
-                    await patientsService.CreatePacientes(newPatient);
-
-                    // Redireccionar a una vista de éxito o a la lista de dosificaciones
-                    return RedirectToAction("ViewPatients");
-                }
-                return View(newPatient);
-            }
-            catch (Exception ex)
-            {
-                // Manejar cualquier excepción que pueda ocurrir al llamar al servicio
-                ModelState.AddModelError("", "Error al intentar guardar la dosificación. Por favor, inténtelo de nuevo más tarde.");
-                return RedirectToAction("Error");
-            }
+            await patientsService.CreateAsync(paciente);
+            return RedirectToAction("ViewPatients");
         }
 
-
-        public async Task<ActionResult> UpdatePatients()
-        {
-            return View();
-        }
 
 
         [HttpGet]
@@ -64,22 +46,24 @@ namespace FarmaciaBID.Controllers
         {
             try
             {
-                var paciente = await patientsService.GetPatientsById(id);
+
+                var paciente = await patientsService.GetByIdAsync(id);
                 return View("UpdatePatients", paciente);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Error al obtener el Paciente: {ex.Message}");
+                ModelState.AddModelError("", $"Error al obtener el paciente: {ex.Message}");
                 return View("Error");
             }
         }
 
+
         [HttpPost]
-        public async Task<ActionResult> UpdatePatients(Patients updatePatient, int id)
+        public async Task<ActionResult> UpdatePatients(Patients paciente, int id)
         {
             try
             {
-                await patientsService.UpdatePatients(updatePatient, id);
+                await patientsService.UpdateAsync(paciente, id);
                 // Después de la actualización exitosa, redirigir a la vista ViewUser
                 return RedirectToAction("ViewPatients");
             }
@@ -101,8 +85,7 @@ namespace FarmaciaBID.Controllers
             }
         }
 
-
-        public ActionResult DeletePatient(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

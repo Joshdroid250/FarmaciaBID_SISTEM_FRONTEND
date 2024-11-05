@@ -170,6 +170,7 @@
     <Compile Include="Controllers\LotPharmaController.cs" />
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\PresentationController.cs" />
     <Compile Include="Controllers\ProceedingsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\Filters.cs" />
@@ -2449,6 +2450,9 @@
     <Content Include="Views\LotPharma\ViewLotPharma.cshtml" />
     <Content Include="Views\LotPharma\CreateLotPharma.cshtml" />
     <Content Include="Views\LotPharma\UpdateLotPharma.cshtml" />
+    <Content Include="Views\Presentation\ViewPresentation.cshtml" />
+    <Content Include="Views\Presentation\CreatePresentation.cshtml" />
+    <Content Include="Views\Presentation\UpdatePresentation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

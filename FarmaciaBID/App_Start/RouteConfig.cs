@@ -63,6 +63,12 @@ namespace FarmaciaBID
                 url: "LotPharma/{action}/{id}",
                 defaults: new { controller = "LotPharma", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "PresentationRoute",
+                url: "Presentation/{action}/{id}",
+                defaults: new { controller = "Presentation", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

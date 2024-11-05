@@ -25,7 +25,7 @@ namespace FarmaciaBID.Controllers
 
         private async Task<IEnumerable<SelectListItem>> ObtenerPaciente()
         {
-            var paciente = await patientS.GetAllPacientes();
+            var paciente = await patientS.GetAllAsync();
 
             // Verifica que oficinas tenga datos antes de asignarlo a ViewBag
             if (paciente != null && paciente.Any())
