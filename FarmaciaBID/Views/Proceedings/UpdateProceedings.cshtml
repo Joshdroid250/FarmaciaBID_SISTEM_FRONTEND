@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Editar Expediente";
     Layout = null;
+    int userId = Session["UserId"] != null ? (int)Session["UserId"] : 0;
 }
 
 @using (Html.BeginForm())
@@ -16,38 +17,34 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="mb-4">
-        <div class="input-group mb-3 d-none invisible">
-            <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-            @Html.EditorFor(model => model.idExpediente, new { htmlAttributes = new { @class = "form-control", placeholder = "ID", required = "required" } })
-            @Html.ValidationMessageFor(model => model.idExpediente, "", new { @class = "text-danger" })
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-            @Html.EditorFor(model => model.fechaCreacion, new { htmlAttributes = new { @class = "form-control datepicker", placeholder = "Fecha creación", required = "required" } })
-            @Html.ValidationMessageFor(model => model.fechaCreacion, "", new { @class = "text-danger" })
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text"><i class="bi-person-circle d-none invisible" aria-hidden="true"></i></span>
-            @Html.EditorFor(model => model.notas, new { htmlAttributes = new { @class = "form-control", placeholder = "Notas", required = "required" } })
-            @Html.ValidationMessageFor(model => model.notas, "", new { @class = "text-danger" })
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text"><i class="bi-building" aria-hidden="true"></i></span>
-            @Html.DropDownListFor(model => model.idPaciente, (SelectList)ViewBag.Paciente, "Seleccione un paciente", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.idPaciente, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-        <div class="row gx-3 mb-4">
-            <div class="col-md-6">
-                <div class="form-check form-switch">
-                    @Html.LabelFor(model => model.estado, "Estado", htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-check-input", @type = "checkbox", @role = "switch", @id = "flexSwitchCheckDefault" } })
-                    @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-                </div>
+        <div class="mb-4">
+            <div class="input-group mb-3 d-none invisible">
+                <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                @Html.EditorFor(model => model.idExpediente, new { htmlAttributes = new { @class = "form-control", placeholder = "ID", required = "required" } })
+                @Html.ValidationMessageFor(model => model.idExpediente, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                @Html.EditorFor(model => model.fechaCreacion, new { htmlAttributes = new { @class = "form-control datepicker", placeholder = "Fecha creación", required = "required" } })
+                @Html.ValidationMessageFor(model => model.fechaCreacion, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi-person-circle d-none invisible" aria-hidden="true"></i></span>
+                @Html.EditorFor(model => model.notas, new { htmlAttributes = new { @class = "form-control", placeholder = "Notas", required = "required" } })
+                @Html.ValidationMessageFor(model => model.notas, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi-building" aria-hidden="true"></i></span>
+                @Html.DropDownListFor(model => model.idPaciente, (SelectList)ViewBag.Paciente, "Seleccione un paciente", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.idPaciente, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <!-- Campo oculto para idUsuarioCreacion -->
+        @Html.Hidden("idUsuarioCreacion", userId)
+        @Html.Hidden("fechaCreacion", DateTime.Now)
+        @Html.Hidden("idUsuarioModificacion", userId)
+        @Html.Hidden("fechaModificacion", DateTime.Now)
 
         <hr />
         <div class="form-group">

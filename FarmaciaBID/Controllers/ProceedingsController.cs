@@ -43,6 +43,7 @@ namespace FarmaciaBID.Controllers
 
         public async Task<ActionResult> ViewProceedings()
         {
+            ViewBag.Paciente = await ObtenerPaciente();
             var expe = await _expedienteService.GetAllAsync();
             return View(expe);
         }

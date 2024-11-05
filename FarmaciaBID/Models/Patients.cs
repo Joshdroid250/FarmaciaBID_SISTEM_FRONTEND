@@ -13,5 +13,10 @@ namespace FarmaciaBID.Models
         public string telefono { get; set; }
         public string correo { get; set; }
         public int estado { get; set; }
+        public int idDosificacion { get; set; }
+        public int idUsuarioCreacion { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public int idUsuarioModificacion { get; set; }
+        public DateTime fechaModificacion { get; set; }
     }
 }

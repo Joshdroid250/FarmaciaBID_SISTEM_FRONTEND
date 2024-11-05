@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Agregar paciente";
     Layout = null;
+    int userId = Session["UserId"] != null ? (int)Session["UserId"] : 0;
 
     var sexOptions = new List<SelectListItem>
     {
@@ -88,6 +89,11 @@
                 </div>
             </div>
             <!-- Agregar más campos según sea necesario -->
+            <!-- Campo oculto para idUsuarioCreacion -->
+            @Html.Hidden("idUsuarioCreacion", userId)
+            @Html.Hidden("fechaCreacion", DateTime.Now)
+            @Html.Hidden("idUsuarioModificacion", userId)
+            @Html.Hidden("fechaModificacion", DateTime.Now)
         </div>
 
         <hr />
