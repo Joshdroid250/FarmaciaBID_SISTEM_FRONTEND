@@ -43,7 +43,7 @@
                                                 <a href="#" class="updateDosageBtn" data-dosage-id="@users.idUsuario">
                                                     <i class="bi bi-pencil-square" style="color: green; font-size: 20px;"></i>
                                                 </a>
-                                                <a href="#" onclick="confirmDelete('@Url.Action("DeleteDosage", new { id = users.idUsuario })')">
+                                                <a href="#" onclick="confirmDelete('@Url.Action("Delete", new { id = users.idUsuario })')">
                                                     <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
                                                 </a>
                                             </td>
@@ -80,7 +80,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                           
+                            @Html.Partial("CreateUser", new FarmaciaBID.Models.Users())
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            
+                            @Html.Partial("UpdateUser", new FarmaciaBID.Models.Users())
                         </div>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
         $(document).ready(function () {
             // Manejador de evento click para el botón
             $('#botonAbrirModal').on('click', function () {
-                var url = '@Url.Action("CreateDosages", "Dosages")';
+                var url = '@Url.Action("CreateUser", "Users")';
                 $.get(url, function (data) {
                     $('.modal-content').html(data);
                     $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
@@ -197,7 +197,7 @@
         $(document).ready(function () {
             // Manejador de evento click para el botón
             $('#botonAbrirModalUpdate').on('click', function () {
-                var url = '@Url.Action("UpdateDosage", "Dosages")';
+                var url = '@Url.Action("UpdateUser", "Users")';
                 $.get(url, function (data) {
                     $('.modal-content').html(data);
                     $('#exampleModal').modal('show'); // Mostrar el modal después de cargar el contenido
@@ -212,7 +212,7 @@
     // Manejador de evento click para el botón de actualizar en la tabla
     $('.updateDosageBtn').on('click', function () {
         var dosageId = $(this).data('dosage-id'); // Obtener el ID de la dosificación del atributo de datos
-        var url = '@Url.Action("UpdateDosage", "Dosages")' + '?id=' + dosageId; // Construir la URL con el ID de la dosificación
+        var url = '@Url.Action("UpdateUser", "Users")' + '?id=' + dosageId; // Construir la URL con el ID de la dosificación
         $.get(url, function (data) {
             $('.modal-content').html(data);
             $('#UpdateModal').modal('show'); // Mostrar el modal de actualización

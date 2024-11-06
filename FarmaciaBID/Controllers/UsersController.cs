@@ -15,6 +15,7 @@ namespace FarmaciaBID.Controllers
     public class UsersController : Controller
     {
         private readonly UserService _userService;
+        private readonly string apiUrl = ApiConfig.Instance.BaseUrl;
 
         public UsersController()
         {
@@ -25,29 +26,21 @@ namespace FarmaciaBID.Controllers
         public async Task<ActionResult> ViewUser()
         {
 
-            var users = await _userService.GetAllUsersAsync();
+            var users = await _userService.GetAllAsync();
             return View(users);
         }
         // GET: Users/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateUser()
         {
             return View();
         }
 
         // POST: Users/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> CreateUser(Users user)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            await _userService.CreateAsync(user);
+            return RedirectToAction("ViewUser");
         }
 
         // GET: Users/Edit/5
@@ -57,41 +50,78 @@ namespace FarmaciaBID.Controllers
         }
 
         // POST: Users/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpGet]
+        public async Task<ActionResult> UpdateUser(int id)
         {
             try
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                var user = await _userService.GetByIdAsync(id);
+                return View("UpdateUser", user);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", $"Error al obtener el usuario: {ex.Message}");
+                return View("Error");
             }
         }
 
         // GET: Users/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(apiUrl);
+
+                    // HTTP DELETE sin cuerpo del mensaje
+                    var deleteTask = client.DeleteAsync($"/api/Usuarios/{id}");
+
+                    deleteTask.Wait();
+
+                    var result = deleteTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("ViewUser"); // OK sin contenido
+                    }
+                }
+
+                return new HttpStatusCodeResult(500); // Error interno del servidor
+            }
+            catch (Exception ex)
+            {
+                // Manejar otras excepciones según sea necesario
+                return new HttpStatusCodeResult(500); // Error interno del servidor
+            }
         }
 
         // POST: Users/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> UpdateUser(Users user, int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                await _userService.UpdateAsync(user, id);
+                // Después de la actualización exitosa, redirigir a la vista ViewUser
+                return RedirectToAction("ViewUser");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }
+                if (ex.Message.Contains("ya EXISTE"))
+                {
+                    ModelState.AddModelError("", $"Error al actualizar el usuario: {ex.Message}");
+                    // Puedes agregar el mensaje de error específico a la vista si lo necesitas
+                    ViewBag.DuplicateErrorMessage = ex.Message;
+
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("", $"Error al actualizar el usuario: {ex.Message}");
+                    return View();
+                }
+            }                                                               
         }
     }
 }

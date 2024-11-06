@@ -15,27 +15,27 @@ namespace FarmaciaBID.ApiServices
     {
         public UserService() : base(ApiConfig.ApiConfig.Instance.BaseUrl) { }
 
-        public Task<List<Users>> GetAllUsersAsync()
+        public Task<List<Users>> GetAllAsync()
         {
             return GetAllAsync("/api/Usuarios");
         }
 
-        public Task<Users> GetUserByIdAsync(int id)
+        public Task<Users> GetByIdAsync(int id)
         {
             return GetByIdAsync("/api/Usuarios", id);
         }
 
-        public Task CreateUserAsync(Users user)
+        public Task CreateAsync(Users user)
         {
             return CreateAsync("/api/Usuarios", user);
         }
 
-        public Task UpdateUserAsync(Users user, int id)
+        public Task UpdateAsync(Users user, int id)
         {
             return UpdateAsync("/api/Usuarios", id, user);
         }
 
-        public Task DeleteUserAsync(int id)
+        public Task DeleteAsync(int id)
         {
             return DeleteAsync("/api/Usuarios", id);
         }
